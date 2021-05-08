@@ -1,0 +1,15 @@
+﻿namespace Hyked.Rest.RequestModels
+{
+    public class CarMeta
+    {
+        public string Manufacturer { get; set; }
+
+        public string Model { get; set; }
+
+        public string Year { get; set; }
+
+        public string Color { get; set; }
+
+        public int PassengerSeats { get; set; }
+    }
+}
