@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hyked.Web", "Hyked.Web\Hyke
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{E8013852-BD7A-4EE9-B8D9-777A5944E981}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hyked.Rest", "Hyked.Rest\Hyked.Rest.csproj", "{163DCD94-6974-4A8C-95B1-C0CEA7F253AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hyked.Rest", "Hyked.Rest\Hyked.Rest.csproj", "{163DCD94-6974-4A8C-95B1-C0CEA7F253AC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{45677D60-A067-48FF-8035-32DDF00A82B5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
