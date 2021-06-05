@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { searchSvg } from "../../../shared/svgElements";
+import { searchSvg, xSvg } from "../../../shared/svgElements";
 import { JoinTripModalTextInput } from "./JoinTripModalTextInput";
 
 interface JoinTripModalProps {
@@ -7,7 +7,6 @@ interface JoinTripModalProps {
   closeModal: () => void;
 }
 
-// TODO add x button to modal
 export const JoinTripModal = ({ isOpen, closeModal }: JoinTripModalProps) => {
   useEffect(() => {
     const close = (e: KeyboardEvent) => {
@@ -38,7 +37,6 @@ export const JoinTripModal = ({ isOpen, closeModal }: JoinTripModalProps) => {
           className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
           aria-hidden="true"
         ></div>
-
         <span
           className="hidden sm:inline-block sm:align-middle sm:h-screen"
           aria-hidden="true"
@@ -46,6 +44,12 @@ export const JoinTripModal = ({ isOpen, closeModal }: JoinTripModalProps) => {
           &#8203;
         </span>
         <div className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
+          <button
+            className="absolute top-0 right-0 m-2 text-gray-200 hover:text-gray-500"
+            onClick={closeModal}
+          >
+            {xSvg}
+          </button>
           <div>
             <div className="mt-2 text-center sm:mt-4">
               <h3
