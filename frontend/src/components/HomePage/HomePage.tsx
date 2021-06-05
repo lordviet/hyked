@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { EventData } from "xstate";
 import { EventTypes } from "../../machines/trip-machine/events";
 import { Header } from "../Header/Header";
+import { JoinTripModal } from "../Modals/JoinTripModal/JoinTripModal";
 import { TripsList } from "../TripsList/TripsList";
 
 interface HomePageProps {
@@ -9,8 +10,7 @@ interface HomePageProps {
 }
 
 export const HomePage = ({ send }: HomePageProps) => {
-  console.log("home");
-
+  const [isJoinTripModalOpen, setIsJoinTripModalOpen] = useState(false);
   return (
     <>
       <Header />
@@ -49,7 +49,10 @@ export const HomePage = ({ send }: HomePageProps) => {
                         Start a trip
                       </button>
                       <button
-                        onClick={() => send("TOWARDS_JOIN_TRIP")}
+                        onClick={() => {
+                          //TODO in the modal send("TOWARDS_JOIN_TRIP");
+                          setIsJoinTripModalOpen(!isJoinTripModalOpen);
+                        }}
                         className="flex w-full items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-500 bg-opacity-60 hover:bg-opacity-70 sm:px-8"
                       >
                         Join a trip
@@ -61,7 +64,12 @@ export const HomePage = ({ send }: HomePageProps) => {
             </div>
           </div>
         </div>
-        <div></div>
+        {isJoinTripModalOpen && (
+          <JoinTripModal
+            isOpen={isJoinTripModalOpen}
+            closeModal={() => setIsJoinTripModalOpen(false)}
+          />
+        )}
         <div className="bg-gray-100">
           <div className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
             <h2 className="text-4xl text-left pb-16">Available trips</h2>
