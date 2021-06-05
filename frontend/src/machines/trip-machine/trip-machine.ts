@@ -11,15 +11,15 @@ export const tripMachine = Machine<Context, StateSchema, Events>({
         TOWARDS_START_TRIP: {
           target: "START_TRIP",
         },
-        TOWARDS_JOIN_TRIP: {
-          target: "JOIN_TRIP",
+        TOWARDS_LIST_TRIPS: {
+          target: "LIST_TRIPS",
         },
       },
     },
     START_TRIP: {
       // TODO initial state should check whether the user has a car
     },
-    JOIN_TRIP: {},
+    LIST_TRIPS: {},
     // TODO refactor this to become list trips, join trip should open a modal that after that sends an API call
   },
   on: {
