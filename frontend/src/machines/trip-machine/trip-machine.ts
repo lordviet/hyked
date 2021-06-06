@@ -4,8 +4,11 @@ import { Context, StateSchema } from "./states-context";
 
 export const tripMachine = Machine<Context, StateSchema, Events>({
   id: "trip",
-  initial: "HOME",
+  initial: "LOGIN", // TODO Initial should be validate token
   states: {
+    VALIDATE_TOKEN: {},
+    LOGIN: {},
+    REGISTER: {},
     HOME: {
       on: {
         TOWARDS_START_TRIP: {
@@ -24,5 +27,7 @@ export const tripMachine = Machine<Context, StateSchema, Events>({
   },
   on: {
     TOWARDS_HOME: { target: "HOME" },
+    TOWARDS_LOGIN: { target: "LOGIN" },
+    TOWARDS_REGISTER: { target: "REGISTER" },
   },
 });

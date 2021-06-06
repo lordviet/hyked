@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { EventData } from "xstate";
 import { EventTypes } from "../../machines/trip-machine/events";
-import { Header } from "../Header/Header";
+// import { Header } from "../Header/Header";
 import { JoinTripModal } from "../Modals/JoinTripModal/JoinTripModal";
 import { TripsList } from "../TripsList/TripsList";
 

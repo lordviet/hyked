@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import hykedLogo from "../../static/images/hyked-logo.svg";
 
 export const Header = () => {
   const [isMobileHeaderOpen, setIsMobileHeaderOpen] = useState(false);
@@ -28,7 +29,7 @@ export const Header = () => {
               <span className="sr-only">Workflow</span>
               <img
                 className="h-8 w-auto sm:h-10"
-                src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
+                src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg" // use hyked logo
                 alt=""
               />
             </button>
