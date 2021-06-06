@@ -13,7 +13,7 @@ export const HomePage = ({ send }: HomePageProps) => {
   const [isJoinTripModalOpen, setIsJoinTripModalOpen] = useState(false);
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       <main>
         <div>
           <div className="relative">

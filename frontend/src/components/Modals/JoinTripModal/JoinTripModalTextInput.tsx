@@ -22,7 +22,7 @@ export const JoinTripModalTextInput = ({
           name={heading.toLowerCase()}
           id={heading}
           className="focus:ring-indigo-500 focus:border-indigo-500 block w-full py-4 pl-12 sm:text-sm border border-gray-300 rounded-md"
-          placeholder="Sofia..."
+          placeholder="City..."
         />
       </div>
     </div>
