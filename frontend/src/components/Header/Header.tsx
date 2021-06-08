@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import hykedLogo from "../../static/images/hyked-logo.svg";
+// import hykedLogo from "../../static/images/hyked-logo.svg";
 
 export const Header = () => {
   const [isMobileHeaderOpen, setIsMobileHeaderOpen] = useState(false);
