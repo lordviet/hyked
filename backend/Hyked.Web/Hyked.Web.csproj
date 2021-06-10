@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Hyked.Data\Hyked.Data.csproj" />
     <ProjectReference Include="..\Hyked.Rest\Hyked.Rest.csproj" />
   </ItemGroup>
 

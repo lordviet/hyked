@@ -1,14 +1,13 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Hyked.Models.Domain
 {
     public class User
     {
-        [Key]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column]
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         [Column]
         public string Username { get; set; }
@@ -17,12 +16,15 @@ namespace Hyked.Models.Domain
         public string Password { get; set; }
 
         [Column]
-        public string? CarId { get; set; }
+        public string PhoneNumber { get; set; }
 
-        [LinqMapping.Association(ThisKey = "CarId", OtherKey = "Id")]
+        //[Column]
+        //public string? CarId { get; set; }
 
-        [Column]
-        public CarMeta Car { get; set; }
+        ////[LinqMapping.Association(ThisKey = "CarId", OtherKey = "Id")]
+
+        //[Column]
+        //public CarMeta Car { get; set; }
 
     }
 }

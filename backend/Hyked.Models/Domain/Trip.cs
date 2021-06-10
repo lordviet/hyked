@@ -15,7 +15,7 @@ namespace Hyked.Models.Domain
         [Column]
         public int UserId { get; set; }
 
-        [LinqMapping.Association(ThisKey = "UserId", OtherKey = "Id")]
+        //[LinqMapping.Association(ThisKey = "UserId", OtherKey = "Id")]
 
         [Column]
         public User User { get; set; }

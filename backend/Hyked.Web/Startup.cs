@@ -1,7 +1,12 @@
+using Hyked.Data;
+using Hyked.Data.Contracts;
+using Hyked.Data.Implementations;
+using Hyked.Models.Domain;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -42,6 +47,10 @@ namespace Hyked.Web
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Hyked.Web", Version = "v1" });
             });
+
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddTransient<IGenericRepository<User>, GenericRepository<User>>();
+            // TODO add other repositories as well
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
