@@ -6,9 +6,6 @@ namespace Hyked.API.Context
 {
     public class HykedContext : DbContext
     {
-        public DbSet<City> Cities { get; set; }
-        public DbSet<PointOfInterest> PointsOfInterest { get; set; }
-
         public DbSet<User> Users { get; set; }
         public DbSet<CarMeta> Cars { get; set; }
         public DbSet<Trip> Trips { get; set; }
@@ -25,49 +22,6 @@ namespace Hyked.API.Context
         {
             // Seeding is used for providing the db with initial value to start
             modelBuilder.HasDefaultSchema("17114131");
-
-            modelBuilder.Entity<City>().HasData(
-                new City()
-                {
-                    Id = 1,
-                    Name = "New York City",
-                    Description = "The one where Spidey swings"
-                },
-                new City()
-                {
-                    Id = 2,
-                    Name = "Karlovo",
-                    Description = "The one where Levski was born"
-                },
-                new City()
-                {
-                    Id = 3,
-                    Name = "Paris",
-                    Description = "The one with the artsy stuff"
-                });
-
-            modelBuilder.Entity<PointOfInterest>().HasData(
-                new PointOfInterest()
-                {
-                    Id = 1,
-                    CityId = 1,
-                    Name = "Central Park",
-                    Description = "That big park"
-                },
-                new PointOfInterest()
-                {
-                    Id = 2,
-                    CityId = 1,
-                    Name = "Empire State Building",
-                    Description = "The one in which the emperor lives"
-                },
-                new PointOfInterest()
-                {
-                    Id = 3,
-                    CityId = 2,
-                    Name = "The waterfall",
-                    Description = "A splashy beauty"
-                });
 
             modelBuilder.Entity<User>().HasData(
                 new User()
