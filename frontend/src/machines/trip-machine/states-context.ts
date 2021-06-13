@@ -1,10 +1,17 @@
-export interface Context {}
+export interface Context {
+  apiKey?: string | null;
+}
 
 export type StateSchema = {
   states: {
-    VALIDATE_TOKEN: {};
+    VALIDATE_API_KEY: {};
     LOGIN: {};
-    REGISTER: {};
+    REGISTER: {
+      states: {
+        IDLE: {};
+        VALIDATE_REGISTER: {};
+      };
+    };
     HOME: {};
     START_TRIP: {};
     LIST_TRIPS: {};

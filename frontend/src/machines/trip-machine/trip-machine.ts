@@ -1,14 +1,56 @@
-import { Machine } from "xstate";
+import { assign, Machine } from "xstate";
 import { Events } from "./events";
+import { validateRegister } from "./services";
 import { Context, StateSchema } from "./states-context";
 
 export const tripMachine = Machine<Context, StateSchema, Events>({
   id: "trip",
-  initial: "LOGIN", // TODO Initial should be validate token
+  initial: "LOGIN", // TODO Initial should be validate api key
   states: {
-    VALIDATE_TOKEN: {},
+    VALIDATE_API_KEY: {
+      // invoke: {
+      //   id: "validateApiKey",
+      //   src: validateApiKey,
+      //   onDone: {
+      //     target: "HOME",
+      //   },
+      //   onError: {
+      //     target: "LOGIN",
+      //   },
+    },
     LOGIN: {},
-    REGISTER: {},
+    REGISTER: {
+      id: "register",
+      initial: "IDLE",
+      states: {
+        IDLE: {
+          on: {
+            TOWARDS_VALIDATE_REGISTER: {
+              target: "VALIDATE_REGISTER",
+            },
+          },
+        },
+        VALIDATE_REGISTER: {
+          invoke: {
+            id: "validateRegister",
+            src: validateRegister,
+            onDone: {
+              // actions: [
+              //   "clearError",
+              //   assign((_, event) => ({
+              //     apiKey: event.data.apiKey,
+              //   })),
+              // ],
+              target: "#trip.VALIDATE_API_KEY",
+            },
+            onError: {
+              actions: ["receiveError"],
+              target: "IDLE",
+            },
+          },
+        },
+      },
+    },
     HOME: {
       on: {
         TOWARDS_START_TRIP: {

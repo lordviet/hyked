@@ -1,14 +1,17 @@
 import React from "react";
 import "./App.css";
 
-import { HomePage } from "./components/HomePage/HomePage";
-import { StartTrip } from "./components/StartTrip/StartTrip";
+import { Toaster } from "react-hot-toast";
 
 import { useMachine } from "@xstate/react";
 import { tripMachine } from "./machines/trip-machine/trip-machine";
-import { Header } from "./components/Header/Header";
+
 import { Login } from "./components/Login/Login";
+import { Header } from "./components/Header/Header";
 import { Register } from "./components/Login/Register";
+import { HomePage } from "./components/HomePage/HomePage";
+import { StartTrip } from "./components/StartTrip/StartTrip";
+
 
 function App() {
   const [current, send] = useMachine(tripMachine);
@@ -21,6 +24,18 @@ function App() {
   const isStartTrip = current.matches("START_TRIP");
   return (
     <div className="App">
+      <Toaster
+        position="bottom-center"
+        toastOptions={{
+          style: {
+            margin: "40px",
+            maxWidth: "500px",
+            background: "#363636",
+            color: "#fff",
+            zIndex: 100,
+          },
+        }}
+      />
       {!isLogin && !isRegister && <Header />}
       {isHome && <HomePage send={send} />}
       {isLogin && <Login send={send} />}

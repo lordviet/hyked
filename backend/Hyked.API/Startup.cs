@@ -30,15 +30,14 @@ namespace Hyked.API
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCors(o =>
+            services.AddCors(options =>
             {
-                o.AddPolicy("default", policy =>
-                {
-                    policy.AllowAnyOrigin();
-                    policy.AllowAnyHeader();
-                    policy.AllowAnyMethod();
-                    policy.WithExposedHeaders("WWW-Authenticate");
-                });
+                options.AddPolicy("AllowConfiguredOrigins", builder => builder
+                    .WithOrigins("*")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .WithExposedHeaders("WWW-Authenticate")
+                );
             });
 
             services.AddRouting(options => options.LowercaseUrls = true);
@@ -68,7 +67,6 @@ namespace Hyked.API
             // Register repositories
             services.AddScoped<IHykedRepository, HykedRepository>();
 
-
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
 
@@ -86,8 +84,10 @@ namespace Hyked.API
 
             app.UseStatusCodePages();
 
+            app.UseCors("AllowConfiguredOrigins");
+            
             app.UseMvc();
-
+            
             app.UseSwagger();
 
             app.UseSwaggerUI(
@@ -98,7 +98,10 @@ namespace Hyked.API
                     c.DisplayOperationId();
                 });
 
-            //app.UseRouting();
+            //app.UseCors("default");
+
+
+            app.UseRouting();
 
             //app.UseEndpoints(endpoints =>
             //{
