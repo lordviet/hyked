@@ -32,27 +32,18 @@ export const validateRegister = async (_: Context, event: Events) => {
   }
 
   try {
-    // const result = await Register(username, password, phoneNumber);
-    // const result = await axios({
-    //   method: "post",
-    //   headers: {
-    //     "Access-Control-Allow-Origin": "*",
-    //   },
-    //   url: `${BaseUri}/api/users/register`,
-    //   data: {
-    //     username,
-    //     password,
-    //     phoneNumber,
-    //   },
-    // });
-
     const result = await axios({
-      method: "get",
+      method: "post",
       headers: {
         "Access-Control-Allow-Origin": "*",
       },
-      url: `${BaseUri}/api/trips`,
-    });
+      url: `${BaseUri}/api/users/register`,
+      data: {
+        username,
+        password,
+        phoneNumber,
+      },
+    });  
 
     console.log("RESULT, ", result);
     return result;
