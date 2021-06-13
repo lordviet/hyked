@@ -43,7 +43,6 @@ export const tripMachine = Machine<Context, StateSchema, Events>({
             src: validateLogin,
             onDone: {
               actions: [
-                // "clearError",
                 assign((_, event) => ({
                   login: event.data,
                 })),
@@ -75,7 +74,6 @@ export const tripMachine = Machine<Context, StateSchema, Events>({
             src: validateRegister,
             onDone: {
               actions: [
-                // "clearError",
                 assign((_, event) => ({
                   login: event.data,
                 })),
@@ -110,5 +108,8 @@ export const tripMachine = Machine<Context, StateSchema, Events>({
     TOWARDS_HOME: { target: "HOME" },
     TOWARDS_LOGIN: { target: "LOGIN" },
     TOWARDS_REGISTER: { target: "REGISTER" },
+    CLEAR_ERROR: {
+      actions: ["clearError"],
+    },
   },
 });

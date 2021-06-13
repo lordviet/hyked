@@ -4,6 +4,7 @@ import axios from "axios";
 import { BaseUri, LocalStorageApiKey } from "../../shared/constants";
 import { UserDto } from "../../models/response-models/user-dto";
 import { UserRequest } from "../../models/request-models/user-request";
+import toast from "react-hot-toast";
 
 export const fetchTrips = () => console.log("tripsFetched");
 
@@ -28,11 +29,11 @@ export const validateLogin = async (_: Context, event: Events) => {
 
     const userMeta = result.data;
     localStorage.setItem(LocalStorageApiKey, userMeta.apiKey);
-    // localStorage.setItem("userMeta", JSON.stringify(result.data));
 
     console.log("RESULT, ", userMeta);
     return userMeta;
   } catch (error) {
+    toast.error("Login failed, please try again.");
     throw error;
   }
 };
@@ -48,26 +49,16 @@ export const validateRegister = async (_: Context, event: Events) => {
   const phoneNumber = event.phoneNumber;
 
   if (password.length < 5) {
+    toast.error("Sorry, your password must be at least 5 characters long.");
     throw new Error("Sorry, your password must be at least 5 characters long.");
   }
 
   if (password !== confirmPassword) {
+    toast.error("Sorry, the passwords do not match.");
     throw new Error("Sorry, the passwords do not match.");
   }
 
   try {
-    // const result = await axios({
-    //   method: "post",
-    //   headers: {
-    //     "Access-Control-Allow-Origin": "*",
-    //   },
-    //   url: `${BaseUri}/api/users/register`,
-    //   data: {
-    //     username,
-    //     password,
-    //     phoneNumber,
-    //   },
-    // });
     const userRequest: UserRequest = { username, password, phoneNumber };
 
     const result = await axios.post<UserDto>(
@@ -77,11 +68,11 @@ export const validateRegister = async (_: Context, event: Events) => {
 
     const userMeta = result.data;
     localStorage.setItem(LocalStorageApiKey, userMeta.apiKey);
-    // localStorage.setItem("userMeta", JSON.stringify(result.data));
 
-    console.log("RESULT, ", userMeta);
     return userMeta;
   } catch (error) {
+    const defaultError = "Register failed, please try again";
+    toast.error(error.response.detail ?? defaultError);
     throw error;
   }
 };

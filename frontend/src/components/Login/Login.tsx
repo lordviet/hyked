@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { EventData } from "xstate";
 import { EventTypes } from "../../machines/trip-machine/events";
 import { LoginFormButton } from "./LoginButton";
@@ -11,12 +11,6 @@ interface LoginProps {
 export const Login = ({ send }: LoginProps) => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-
-  useEffect(() => {
-    // if (error) {
-    //   send("CLEAR_ERROR");
-    // }
-  }, [username, password, send]);
 
   const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

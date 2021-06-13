@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { EventData } from "xstate";
 import { EventTypes } from "../../machines/trip-machine/events";
 import { LoginFormButton } from "./LoginButton";
@@ -13,12 +13,6 @@ export const Register = ({ send }: RegisterProps) => {
   const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
-
-  useEffect(() => {
-    // if (error) {
-    //   send("CLEAR_ERROR");
-    // }
-  }, [username, phoneNumber, password, confirmPassword, send]);
 
   const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
