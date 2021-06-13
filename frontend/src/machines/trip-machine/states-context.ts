@@ -1,3 +1,4 @@
+import { CarMetaDto } from "../../models/response-models/car-meta-dto";
 import { TripDto } from "../../models/response-models/trip-dto";
 
 export interface Context {
@@ -6,6 +7,7 @@ export interface Context {
     userId?: number;
     username?: string;
     apiKey?: string;
+    car?: CarMetaDto;
   };
   trips?: TripDto[];
 }

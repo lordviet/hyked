@@ -37,11 +37,14 @@ namespace Hyked.API.Controllers
 
             string ApiKey = $"API-KEY-{ComputeSha256Hash($"{username}{encryptedPass}")}";
 
+            CarMetaDto mappedCar = this.mapper.Map<CarMetaDto>(user.Car);
+
             UserDto response = new UserDto
             {
                 Id = user.Id,
                 Username = user.Username,
-                ApiKey = ApiKey
+                ApiKey = ApiKey,
+                Car = mappedCar
             };
 
             return this.Ok(response);
@@ -75,11 +78,14 @@ namespace Hyked.API.Controllers
 
             string ApiKey = $"API-KEY-{ComputeSha256Hash($"{user.Username}{encryptedPass}")}";
 
+            CarMetaDto mappedCar = this.mapper.Map<CarMetaDto>(user.Car);
+
             UserDto response = new UserDto
             {
                 Id = user.Id,
                 Username = user.Username,
-                ApiKey = ApiKey
+                ApiKey = ApiKey,
+                Car = mappedCar
             };
 
             return this.CreatedAtRoute("Login", new { username, password = userRequest.Password }, response);

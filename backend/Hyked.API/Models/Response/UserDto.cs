@@ -10,5 +10,7 @@ namespace Hyked.API.Models.Response
         public string Username { get; set; }
 
         public string ApiKey { get; set; }
+
+        public CarMetaDto Car { get; set; }
     }
 }

@@ -67,6 +67,14 @@ export const Header = ({ send }: HeaderProps) => {
             </button>
           </div>
           <nav className="hidden md:flex space-x-10">
+            <button
+              onClick={() => {
+                send("TOWARDS_HOME");
+              }}
+              className="text-base font-medium text-gray-500 hover:text-gray-900"
+            >
+              Home
+            </button>
             <button className="text-base font-medium text-gray-500 hover:text-gray-900">
               Active Trips
             </button>

@@ -1,12 +1,14 @@
 import React from "react";
 import { EventData } from "xstate";
 import { EventTypes } from "../../machines/trip-machine/events";
+import { CarMetaDto } from "../../models/response-models/car-meta-dto";
 
 interface StartTripProps {
   send: (event: EventTypes, payload?: EventData | undefined) => {};
+  car?: CarMetaDto;
 }
 
-export const StartTrip = ({ send }: StartTripProps) => {
+export const StartTrip = ({ send, car }: StartTripProps) => {
   return (
     <>
       <div className="bg-gray-100 h-screen">

@@ -17,6 +17,7 @@ export const tripMachine = Machine<Context, StateSchema, Events>({
       userId: undefined,
       username: undefined,
       apiKey: undefined,
+      car: undefined,
     },
   },
   states: {
