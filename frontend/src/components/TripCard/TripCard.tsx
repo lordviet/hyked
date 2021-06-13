@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { TripCardLine } from "./TripCardLine";
+import axios from "axios";
 
 // Icons
 import { locationSvg, phoneSvg } from "../../shared/svgElements";
@@ -9,11 +10,10 @@ import { gasSvg } from "../../shared/svgElements";
 import { seatsSvg } from "../../shared/svgElements";
 import { carSvg } from "../../shared/svgElements";
 import { infoSvg } from "../../shared/svgElements";
+import { BaseUri } from "../../shared/constants";
 import { TripDto } from "../../models/response-models/trip-dto";
 import { DriverDto } from "../../models/response-models/driver-dto";
-import axios from "axios";
-import { BaseUri } from "../../shared/constants";
-import { copyContent } from "../../utls/copy";
+import { copyContent } from "../../utils/copy";
 
 interface TripCardProps {
   tripMeta: TripDto;
