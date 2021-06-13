@@ -1,11 +1,16 @@
 import { assign, Machine } from "xstate";
 import { Events } from "./events";
-import { validateApiKey, validateLogin, validateRegister } from "./services";
+import {
+  fetchTrips,
+  validateApiKey,
+  validateLogin,
+  validateRegister,
+} from "./services";
 import { Context, StateSchema } from "./states-context";
 
 export const tripMachine = Machine<Context, StateSchema, Events>({
   id: "trip",
-  initial: "VALIDATE_API_KEY", // TODO Initial should be validate api key
+  initial: "VALIDATE_API_KEY",
   context: {
     login: {
       userId: undefined,
@@ -89,19 +94,39 @@ export const tripMachine = Machine<Context, StateSchema, Events>({
       },
     },
     HOME: {
+      id: "home",
+      initial: "LOAD_TRIPS",
       on: {
         TOWARDS_START_TRIP: {
           target: "START_TRIP",
         },
-        TOWARDS_LIST_TRIPS: {
-          target: "LIST_TRIPS",
+        // TOWARDS_LIST_TRIPS: {
+        //   target: "LIST_TRIPS",
+        // },
+      },
+      states: {
+        LOAD_TRIPS: {
+          invoke: {
+            id: "fetchTrips",
+            src: fetchTrips,
+            onDone: {
+              target: "#home.LIST_TRIPS",
+              actions: [
+                assign((context, event) => ({
+                  trips: event.data,
+                })),
+              ],
+            },
+            onError: {}, // TODO: Show error
+          },
         },
+        LIST_TRIPS: {},
       },
     },
     START_TRIP: {
       // TODO initial state should check whether the user has a car
     },
-    LIST_TRIPS: {},
+    LIST_SEARCH_TRIPS: {},
     // TODO refactor this to become list trips, join trip should open a modal that after that sends an API call
   },
   on: {

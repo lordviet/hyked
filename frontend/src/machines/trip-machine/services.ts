@@ -5,8 +5,7 @@ import { BaseUri, LocalStorageApiKey } from "../../shared/constants";
 import { UserDto } from "../../models/response-models/user-dto";
 import { UserRequest } from "../../models/request-models/user-request";
 import toast from "react-hot-toast";
-
-export const fetchTrips = () => console.log("tripsFetched");
+import { TripDto } from "../../models/response-models/trip-dto";
 
 export const eventErrorType = (event: string, expected: string) => {
   throw new Error(
@@ -84,4 +83,12 @@ export const validateApiKey = async (context: Context, _: Events) => {
   if (!apiKey) {
     throw new Error("No API key found");
   }
+};
+
+export const fetchTrips = async () => {
+  const result = await axios.get<TripDto>(`${BaseUri}/api/trips`);
+
+  const trips = result.data;
+
+  return trips;
 };

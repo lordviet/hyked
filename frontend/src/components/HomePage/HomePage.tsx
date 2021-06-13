@@ -1,16 +1,18 @@
 import React, { useState } from "react";
 import { EventData } from "xstate";
 import { EventTypes } from "../../machines/trip-machine/events";
-// import { Header } from "../Header/Header";
+import { TripDto } from "../../models/response-models/trip-dto";
 import { JoinTripModal } from "../Modals/JoinTripModal/JoinTripModal";
 import { TripsList } from "../TripsList/TripsList";
 
 interface HomePageProps {
+  trips?: TripDto[];
   send: (event: EventTypes, payload?: EventData | undefined) => {};
 }
 
-export const HomePage = ({ send }: HomePageProps) => {
+export const HomePage = ({ trips, send }: HomePageProps) => {
   const [isJoinTripModalOpen, setIsJoinTripModalOpen] = useState(false);
+  console.log("trips in component ", trips);
   return (
     <>
       {/* <Header /> */}
@@ -73,7 +75,7 @@ export const HomePage = ({ send }: HomePageProps) => {
         <div className="bg-gray-100">
           <div className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
             <h2 className="text-4xl text-left pb-16">Available trips</h2>
-            <TripsList />
+            {trips && <TripsList trips={trips} />}
           </div>
         </div>
       </main>

@@ -9,23 +9,43 @@ import { gasSvg } from "../../shared/svgElements";
 import { seatsSvg } from "../../shared/svgElements";
 import { carSvg } from "../../shared/svgElements";
 import { infoSvg } from "../../shared/svgElements";
+import { TripDto } from "../../models/response-models/trip-dto";
 
-export const TripCard = () => {
+interface TripCardProps {
+  tripMeta: TripDto;
+}
+
+export const TripCard = ({ tripMeta }: TripCardProps) => {
+  const {
+    fromLocation,
+    toLocation,
+    departureTimeUtc,
+    availableSeats,
+    takenSeats,
+    isActive,
+    price,
+  } = tripMeta;
   return (
     <li className="col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200">
       <div className="w-full flex items-center justify-between p-6 space-x-6">
         <div className="flex-1">
           <div className="flex items-center space-x-6">
             <h3 className="text-gray-900 font-medium truncate">Jane Cooper</h3>
-            <span className="flex-shrink-0 inline-block px-2 py-0.5 text-green-800 text-xs font-medium bg-green-100 rounded-full">
-              Active
-            </span>
+            {isActive ? (
+              <span className="flex-shrink-0 inline-block px-2 py-0.5 text-green-800 text-xs font-medium bg-green-100 rounded-full">
+                Active
+              </span>
+            ) : (
+              <span className="flex-shrink-0 inline-block px-2 py-0.5 text-gray-600 text-xs font-medium bg-gray-200 rounded-full">
+                Inactive
+              </span>
+            )}
           </div>
           <TripCardLine
             firstElementSvg={locationSvg}
-            firstElementText={"From: Stara Zagora"}
+            firstElementText={`From: ${fromLocation}`}
             secondElementSvg={locationSvg}
-            secondElementText={"To: Haskovo"}
+            secondElementText={`To: ${toLocation}`}
           />
           <TripCardLine
             firstElementSvg={calendarSvg}
@@ -35,14 +55,14 @@ export const TripCard = () => {
           />
           <TripCardLine
             firstElementSvg={gasSvg}
-            firstElementText={"Price: 10lv"}
+            firstElementText={`Price: ${price} lv`}
             secondElementSvg={seatsSvg}
-            secondElementText={"Seats: 2 out of 3"}
+            secondElementText={`Seats: ${takenSeats} out of ${availableSeats}`}
           />
-          <TripCardLine
+          {/* <TripCardLine
             firstElementSvg={carSvg}
             firstElementText={"Car: Audi a3"}
-          />
+          /> */}
         </div>
       </div>
       <div>
@@ -53,7 +73,7 @@ export const TripCard = () => {
               className="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500"
             >
               {infoSvg}
-              <span className="ml-3">Details</span>
+              <span className="ml-3">Join trip</span>
             </a>
           </div>
           <div className="-ml-px w-0 flex-1 flex">

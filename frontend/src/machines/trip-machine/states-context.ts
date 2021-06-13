@@ -1,3 +1,5 @@
+import { TripDto } from "../../models/response-models/trip-dto";
+
 export interface Context {
   error?: string;
   login: {
@@ -5,6 +7,7 @@ export interface Context {
     username?: string;
     apiKey?: string;
   };
+  trips?: TripDto[];
 }
 
 export type StateSchema = {
@@ -22,8 +25,13 @@ export type StateSchema = {
         VALIDATE_REGISTER: {};
       };
     };
-    HOME: {};
+    HOME: {
+      states: {
+        LOAD_TRIPS: {};
+        LIST_TRIPS: {};
+      };
+    };
     START_TRIP: {};
-    LIST_TRIPS: {};
+    LIST_SEARCH_TRIPS: {};
   };
 };

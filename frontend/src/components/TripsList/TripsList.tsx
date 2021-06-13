@@ -1,14 +1,17 @@
 import React from "react";
+import { TripDto } from "../../models/response-models/trip-dto";
 import { TripCard } from "../TripCard/TripCard";
 
-// TODO The trips should come from the context in the commented state
-export const TripsList = () => {
+interface TripListProps {
+  trips: TripDto[];
+}
+
+export const TripsList = ({ trips }: TripListProps) => {
   return (
     <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      <TripCard/>
-      <TripCard/>
-      <TripCard/>
-      <TripCard/>
+      {trips.map((trip) => (
+        <TripCard key={trip.id} tripMeta={trip} />
+      ))}
     </ul>
   );
 };
