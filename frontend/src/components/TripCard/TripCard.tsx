@@ -3,13 +3,17 @@ import { TripCardLine } from "./TripCardLine";
 import axios from "axios";
 
 // Icons
-import { locationSvg, phoneSvg } from "../../shared/svgElements";
+import {
+  crossSvg,
+  locationSvg,
+  phoneSvg,
+  tickSvg,
+} from "../../shared/svgElements";
 import { calendarSvg } from "../../shared/svgElements";
 import { clockSvg } from "../../shared/svgElements";
 import { gasSvg } from "../../shared/svgElements";
 import { seatsSvg } from "../../shared/svgElements";
 import { carSvg } from "../../shared/svgElements";
-import { infoSvg } from "../../shared/svgElements";
 import { BaseUri } from "../../shared/constants";
 import { TripDto } from "../../models/response-models/trip-dto";
 import { DriverDto } from "../../models/response-models/driver-dto";
@@ -141,7 +145,7 @@ export const TripCard = ({
                   }}
                   className="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500"
                 >
-                  {infoSvg}
+                  {crossSvg}
                   <span className="ml-3">Leave trip</span>
                 </button>
               ) : (
@@ -155,7 +159,7 @@ export const TripCard = ({
                   }}
                   className="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500"
                 >
-                  {infoSvg}
+                  {tickSvg}
                   <span className="ml-3">Join trip</span>
                 </button>
               )}
