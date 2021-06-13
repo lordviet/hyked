@@ -4,7 +4,7 @@ import { TripDto } from "../../models/response-models/trip-dto";
 export interface Context {
   error?: string;
   login: {
-    userId?: number;
+    id?: number;
     username?: string;
     apiKey?: string;
     car?: CarMetaDto;

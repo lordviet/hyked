@@ -10,10 +10,10 @@ import toast from "react-hot-toast";
 interface StartTripProps {
   send: (event: EventTypes, payload?: EventData | undefined) => {};
   car?: CarMetaDto;
-  // userId: number;
+  userId?: number;
 }
 
-export const StartTrip = ({ send, car }: StartTripProps) => {
+export const StartTrip = ({ send, car, userId }: StartTripProps) => {
   const [fromLocation, setFromLocation] = useState("");
   const [toLocation, setToLocation] = useState("");
   const [price, setPrice] = useState<number | null>(null);
@@ -26,6 +26,7 @@ export const StartTrip = ({ send, car }: StartTripProps) => {
   };
 
   const handleTripCreation = async (
+    id: number,
     fromLocation: string,
     toLocation: string,
     price: number,
@@ -33,9 +34,7 @@ export const StartTrip = ({ send, car }: StartTripProps) => {
     hourInput: string,
     availableSeats: number
   ) => {
-    // Needs user id
     const departureTimeUtc = `${date} ${hourInput}`;
-    console.log(departureTimeUtc);
 
     const tripRequest: TripRequest = {
       fromLocation,
@@ -45,7 +44,7 @@ export const StartTrip = ({ send, car }: StartTripProps) => {
       availableSeats,
     };
     try {
-      await axios.post(`${BaseUri}/api/user/7/trips`, tripRequest);
+      await axios.post(`${BaseUri}/api/user/${id}/trips`, tripRequest);
       toast.success("Trip successfully created");
     } catch (error) {
       toast.error(error.message);
@@ -204,10 +203,11 @@ export const StartTrip = ({ send, car }: StartTripProps) => {
                           type="submit"
                           className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                           onClick={async () => {
-                            // handleTripCreation();
-                            price &&
+                            userId &&
+                              price &&
                               availableSeats &&
                               (await handleTripCreation(
+                                userId,
                                 fromLocation,
                                 toLocation,
                                 price,
@@ -215,7 +215,7 @@ export const StartTrip = ({ send, car }: StartTripProps) => {
                                 hourInput,
                                 availableSeats
                               ));
-                            // GO HOME
+                            send("TOWARDS_HOME");
                           }}
                         >
                           Create trip

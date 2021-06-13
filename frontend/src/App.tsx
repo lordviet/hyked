@@ -48,7 +48,7 @@ function App() {
       )}
       {isLogin && <Login send={send} />}
       {isRegister && <Register send={send} />}
-      {isStartTrip && <StartTrip car={context.login.car} send={send} />}
+      {isStartTrip && <StartTrip userId={context.login.id} car={context.login.car} send={send} />}
       {isSearchTrips && (
         <SearchTrips
           username={context.login.username}

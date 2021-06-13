@@ -14,7 +14,7 @@ export const tripMachine = Machine<Context, StateSchema, Events>({
   initial: "VALIDATE_API_KEY",
   context: {
     login: {
-      userId: undefined,
+      id: undefined,
       username: undefined,
       apiKey: undefined,
       car: undefined,
