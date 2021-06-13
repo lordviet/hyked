@@ -3,7 +3,6 @@ import React from "react";
 interface LoginInputProps {
   title: string;
   type?: string;
-  format?: (value: string) => string;
   autoFocus?: boolean;
   value: string;
   setValue: (value: string) => void;
@@ -12,7 +11,6 @@ interface LoginInputProps {
 export const LoginInput = ({
   title,
   type,
-  format,
   autoFocus,
   value,
   setValue,
@@ -33,7 +31,7 @@ export const LoginInput = ({
           autoFocus={autoFocus ? true : false}
           type={type ? type : "text"}
           onChange={({ target }) => {
-            setValue(format?.(target.value) ?? target.value);
+            setValue(target.value);
           }}
           value={value}
           className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"

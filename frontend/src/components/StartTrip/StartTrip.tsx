@@ -1,14 +1,57 @@
-import React from "react";
+import axios from "axios";
+import React, { useState } from "react";
 import { EventData } from "xstate";
 import { EventTypes } from "../../machines/trip-machine/events";
+import { TripRequest } from "../../models/request-models/trip-request";
 import { CarMetaDto } from "../../models/response-models/car-meta-dto";
+import { BaseUri } from "../../shared/constants";
+import toast from "react-hot-toast";
 
 interface StartTripProps {
   send: (event: EventTypes, payload?: EventData | undefined) => {};
   car?: CarMetaDto;
+  // userId: number;
 }
 
 export const StartTrip = ({ send, car }: StartTripProps) => {
+  const [fromLocation, setFromLocation] = useState("");
+  const [toLocation, setToLocation] = useState("");
+  const [price, setPrice] = useState<number | null>(null);
+  const [dateInput, setDateInput] = useState("");
+  const [hourInput, setHourInput] = useState("");
+  const [availableSeats, setAvailableSeats] = useState<number | null>(null);
+
+  const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  };
+
+  const handleTripCreation = async (
+    fromLocation: string,
+    toLocation: string,
+    price: number,
+    date: string,
+    hourInput: string,
+    availableSeats: number
+  ) => {
+    // Needs user id
+    const departureTimeUtc = `${date} ${hourInput}`;
+    console.log(departureTimeUtc);
+
+    const tripRequest: TripRequest = {
+      fromLocation,
+      toLocation,
+      price,
+      departureTimeUtc,
+      availableSeats,
+    };
+    try {
+      await axios.post(`${BaseUri}/api/user/7/trips`, tripRequest);
+      toast.success("Trip successfully created");
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
   return (
     <>
       <div className="bg-gray-100 h-screen">
@@ -27,7 +70,7 @@ export const StartTrip = ({ send, car }: StartTripProps) => {
                 </div>
               </div>
               <div className="mt-5 md:mt-0 md:col-span-2">
-                <form action="#" method="POST">
+                <form action="#" method="POST" onSubmit={handleOnSubmit}>
                   <div className="shadow overflow-hidden sm:rounded-md">
                     <div className="px-4 py-5 bg-white sm:p-6">
                       <div className="grid grid-cols-6 gap-6">
@@ -42,6 +85,9 @@ export const StartTrip = ({ send, car }: StartTripProps) => {
                             type="text"
                             name="trip_from"
                             id="trip_from"
+                            onChange={({ target }) => {
+                              setFromLocation(target.value);
+                            }}
                             autoComplete="given-name"
                             className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                           />
@@ -58,6 +104,9 @@ export const StartTrip = ({ send, car }: StartTripProps) => {
                             type="text"
                             name="trip_to"
                             id="trip_to"
+                            onChange={({ target }) => {
+                              setToLocation(target.value);
+                            }}
                             autoComplete="family-name"
                             className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                           />
@@ -74,6 +123,9 @@ export const StartTrip = ({ send, car }: StartTripProps) => {
                             type="date"
                             name="date"
                             id="date"
+                            onChange={({ target }) => {
+                              setDateInput(target.value);
+                            }}
                             className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                           />
                         </div>
@@ -89,6 +141,9 @@ export const StartTrip = ({ send, car }: StartTripProps) => {
                             type="time"
                             name="state"
                             id="state"
+                            onChange={({ target }) => {
+                              setHourInput(target.value);
+                            }}
                             className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                           />
                         </div>
@@ -104,6 +159,9 @@ export const StartTrip = ({ send, car }: StartTripProps) => {
                             type="number"
                             min="0"
                             name="price"
+                            onChange={({ target }) => {
+                              setPrice(+target.value);
+                            }}
                             id="price"
                             autoComplete="price"
                             className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
@@ -122,27 +180,12 @@ export const StartTrip = ({ send, car }: StartTripProps) => {
                             min="1"
                             name="seats"
                             id="seats"
+                            onChange={({ target }) => {
+                              setAvailableSeats(+target.value);
+                            }}
                             autoComplete="seats"
                             className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                           />
-                        </div>
-
-                        <div className="col-span-6 sm:col-span-3">
-                          <label
-                            htmlFor="car"
-                            className="block text-sm font-medium text-gray-700"
-                          >
-                            Car
-                          </label>
-                          <select
-                            id="car"
-                            name="car"
-                            autoComplete="car"
-                            className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                          >
-                            <option>Audi a3</option>
-                            <option>Golf 3</option>
-                          </select>
                         </div>
                       </div>
                     </div>
@@ -160,6 +203,20 @@ export const StartTrip = ({ send, car }: StartTripProps) => {
                         <button
                           type="submit"
                           className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                          onClick={async () => {
+                            // handleTripCreation();
+                            price &&
+                              availableSeats &&
+                              (await handleTripCreation(
+                                fromLocation,
+                                toLocation,
+                                price,
+                                dateInput,
+                                hourInput,
+                                availableSeats
+                              ));
+                            // GO HOME
+                          }}
                         >
                           Create trip
                         </button>
