@@ -1,8 +1,9 @@
 import { Events } from "./events";
 import { Context } from "./states-context";
-import { Register } from "../../api/register";
 import axios from "axios";
-import { BaseUri } from "../../shared/constants";
+import { BaseUri, LocalStorageApiKey } from "../../shared/constants";
+import { UserDto } from "../../models/response-models/user-dto";
+import { UserRequest } from "../../models/request-models/user-request";
 
 export const fetchTrips = () => console.log("tripsFetched");
 
@@ -17,7 +18,6 @@ export const validateRegister = async (_: Context, event: Events) => {
     return eventErrorType(event.type, "TOWARDS_VALIDATE_REGISTER");
   }
 
-  console.log("HEER");
   const username = event.username;
   const password = event.password;
   const confirmPassword = event.confirmPassword;
@@ -32,22 +32,41 @@ export const validateRegister = async (_: Context, event: Events) => {
   }
 
   try {
-    const result = await axios({
-      method: "post",
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-      },
-      url: `${BaseUri}/api/users/register`,
-      data: {
-        username,
-        password,
-        phoneNumber,
-      },
-    });  
+    // const result = await axios({
+    //   method: "post",
+    //   headers: {
+    //     "Access-Control-Allow-Origin": "*",
+    //   },
+    //   url: `${BaseUri}/api/users/register`,
+    //   data: {
+    //     username,
+    //     password,
+    //     phoneNumber,
+    //   },
+    // });
+    const userRequest: UserRequest = { username, password, phoneNumber };
 
-    console.log("RESULT, ", result);
-    return result;
+    const result = await axios.post<UserDto>(
+      `${BaseUri}/api/users/register`,
+      userRequest
+    );
+
+    const userMeta = result.data;
+    localStorage.setItem(LocalStorageApiKey, userMeta.apiKey);
+    // localStorage.setItem("userMeta", JSON.stringify(result.data));
+
+    console.log("RESULT, ", userMeta);
+    return userMeta;
   } catch (error) {
     throw error;
+  }
+};
+
+export const validateApiKey = async (context: Context, _: Events) => {
+  const apiKey =
+    context.login.apiKey || localStorage.getItem(LocalStorageApiKey);
+  console.log(context);
+  if (!apiKey) {
+    throw new Error("No API key found");
   }
 };

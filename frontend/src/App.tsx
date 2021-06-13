@@ -12,7 +12,6 @@ import { Register } from "./components/Login/Register";
 import { HomePage } from "./components/HomePage/HomePage";
 import { StartTrip } from "./components/StartTrip/StartTrip";
 
-
 function App() {
   const [current, send] = useMachine(tripMachine);
   const context = current.context;

@@ -1,5 +1,10 @@
 export interface Context {
-  apiKey?: string | null;
+  error?: string;
+  login: {
+    userId?: number;
+    username?: string;
+    apiKey?: string;
+  }
 }
 
 export type StateSchema = {
