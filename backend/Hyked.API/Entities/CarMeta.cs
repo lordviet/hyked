@@ -35,6 +35,6 @@ namespace Hyked.API.Entities
         public int PassengerSeats { get; set; }
 
         [Required]
-        public DateTimeOffset LastModifiedUtc { get; set; }
+        public DateTimeOffset LastModifiedUtc17114131 { get; set; } = DateTimeOffset.UtcNow;
     }
 }

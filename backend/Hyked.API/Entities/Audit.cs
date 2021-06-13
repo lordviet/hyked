@@ -15,6 +15,7 @@ namespace Hyked.API.Entities
         [Required]
         public string Operation { get; set; }
 
-        public DateTimeOffset TimeOfOperationUtc { get; set; } = DateTime.UtcNow;
+        [Required]
+        public DateTimeOffset TimeOfOperationUtc17114131 { get; set; } = DateTime.UtcNow;
     }
 }

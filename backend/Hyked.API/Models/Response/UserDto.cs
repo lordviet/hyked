@@ -17,6 +17,6 @@ namespace Hyked.API.Models.Response
                 
         public ICollection<TripDto> Trips { get; set; } = new List<TripDto>();
 
-        public DateTimeOffset LastModifiedUtc { get; set; }
+        public DateTimeOffset LastModifiedUtc17114131 { get; set; }
     }
 }

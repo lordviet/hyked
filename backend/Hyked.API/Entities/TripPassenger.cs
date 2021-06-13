@@ -17,6 +17,6 @@ namespace Hyked.API.Entities
         public string PassengerUsername { get; set; }
 
         [Required]
-        public DateTimeOffset LastModifiedUtc { get; set; } = DateTimeOffset.UtcNow;
+        public DateTimeOffset LastModifiedUtc17114131 { get; set; } = DateTimeOffset.UtcNow;
     }
 }

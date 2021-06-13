@@ -16,6 +16,6 @@ namespace Hyked.API.Models.Response
 
         public int PassengerSeats { get; set; }
 
-        public DateTimeOffset LastModifiedUtc { get; set; }
+        public DateTimeOffset LastModifiedUtc17114131 { get; set; }
     }
 }

@@ -29,6 +29,6 @@ namespace Hyked.API.Models.Response
 
         public bool IsActive { get; set; }
 
-        public DateTimeOffset LastModifiedUtc { get; set; }
+        public DateTimeOffset LastModifiedUtc17114131 { get; set; }
     }
 }

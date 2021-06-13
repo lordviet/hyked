@@ -38,6 +38,6 @@ namespace Hyked.API.Entities
         public bool IsActive { get; set; } = true;
 
         [Required]
-        public DateTimeOffset LastModifiedUtc { get; set; } = DateTimeOffset.UtcNow;
+        public DateTimeOffset LastModifiedUtc17114131 { get; set; } = DateTimeOffset.UtcNow;
     }
 }

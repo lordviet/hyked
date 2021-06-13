@@ -10,6 +10,6 @@ namespace Hyked.API.Models.Response
 
         public string PassengerUsername { get; set; }
 
-        public DateTimeOffset LastModifiedUtc { get; set; }
+        public DateTimeOffset LastModifiedUtc17114131 { get; set; }
     }
 }

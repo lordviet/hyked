@@ -33,7 +33,7 @@ namespace Hyked.API.Context
                     Username = "lordviet",
                     Password = "password",
                     PhoneNumber = "0878501743",
-                    LastModifiedUtc = DateTime.UtcNow
+                    LastModifiedUtc17114131 = DateTime.UtcNow
                 },
                 new User()
                 {
@@ -41,7 +41,7 @@ namespace Hyked.API.Context
                     Username = "nix",
                     Password = "password",
                     PhoneNumber = "0878503131",
-                    LastModifiedUtc = DateTime.UtcNow
+                    LastModifiedUtc17114131 = DateTime.UtcNow
                 },
                 new User()
                 {
@@ -49,7 +49,7 @@ namespace Hyked.API.Context
                     Username = "virgo",
                     Password = "password",
                     PhoneNumber = "0878504141",
-                    LastModifiedUtc = DateTime.UtcNow
+                    LastModifiedUtc17114131 = DateTime.UtcNow
                 },
                 new User()
                 {
@@ -57,7 +57,7 @@ namespace Hyked.API.Context
                     Username = "Baby papa",
                     Password = "password",
                     PhoneNumber = "0878504141",
-                    LastModifiedUtc = DateTime.UtcNow
+                    LastModifiedUtc17114131 = DateTime.UtcNow
                 },
                 new User()
                 {
@@ -65,7 +65,7 @@ namespace Hyked.API.Context
                     Username = "Boro The 1st",
                     Password = "password",
                     PhoneNumber = "0873152341",
-                    LastModifiedUtc = DateTime.UtcNow
+                    LastModifiedUtc17114131 = DateTime.UtcNow
                 },
                 new User()
                 {
@@ -73,7 +73,7 @@ namespace Hyked.API.Context
                     Username = "Boro The 2nd",
                     Password = "password",
                     PhoneNumber = "0873152341",
-                    LastModifiedUtc = DateTime.UtcNow
+                    LastModifiedUtc17114131 = DateTime.UtcNow
                 }
             );
 
@@ -87,7 +87,7 @@ namespace Hyked.API.Context
                     Year = 2020,
                     Color = "Space gray",
                     PassengerSeats = 4,
-                    LastModifiedUtc = DateTime.UtcNow
+                    LastModifiedUtc17114131 = DateTime.UtcNow
                 },
                 new CarMeta()
                 {
@@ -98,7 +98,7 @@ namespace Hyked.API.Context
                     Year = 2018,
                     Color = "Panda",
                     PassengerSeats = 3,
-                    LastModifiedUtc = DateTime.UtcNow
+                    LastModifiedUtc17114131 = DateTime.UtcNow
                 },
                 new CarMeta()
                 {
@@ -109,7 +109,7 @@ namespace Hyked.API.Context
                     Year = 2013,
                     Color = "Blue",
                     PassengerSeats = 4,
-                    LastModifiedUtc = DateTime.UtcNow
+                    LastModifiedUtc17114131 = DateTime.UtcNow
                 }
             );
 
@@ -125,7 +125,7 @@ namespace Hyked.API.Context
                     AvailableSeats = 3,
                     Passengers = new List<TripPassenger>(),
                     IsActive = true,
-                    LastModifiedUtc = DateTime.UtcNow
+                    LastModifiedUtc17114131 = DateTime.UtcNow
                 },
                 new Trip()
                 {
@@ -138,7 +138,7 @@ namespace Hyked.API.Context
                     AvailableSeats = 3,
                     Passengers = new List<TripPassenger>(),
                     IsActive = false,
-                    LastModifiedUtc = DateTime.UtcNow
+                    LastModifiedUtc17114131 = DateTime.UtcNow
                 },
                 new Trip()
                 {
@@ -151,7 +151,7 @@ namespace Hyked.API.Context
                     AvailableSeats = 2,
                     Passengers = new List<TripPassenger>(),
                     IsActive = false,
-                    LastModifiedUtc = DateTime.UtcNow
+                    LastModifiedUtc17114131 = DateTime.UtcNow
                 },
                 new Trip()
                 {
@@ -164,24 +164,9 @@ namespace Hyked.API.Context
                     AvailableSeats = 4,
                     Passengers = new List<TripPassenger>(),
                     IsActive = true,
-                    LastModifiedUtc = DateTime.UtcNow
+                    LastModifiedUtc17114131 = DateTime.UtcNow
                 }
-            );
-
-            //modelBuilder.Entity<TripPassenger>().HasData(
-            //    new TripPassenger()
-            //    {
-            //        Id = 1,
-            //        TripId = 1,
-            //        UserId = 4,
-            //    },
-            //    new TripPassenger()
-            //    {
-            //        Id = 2,
-            //        TripId = 2,
-            //        UserId = 5,
-            //    }
-            //);
+            );            
 
             base.OnModelCreating(modelBuilder);
         }
