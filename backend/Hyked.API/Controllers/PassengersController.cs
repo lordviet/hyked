@@ -22,7 +22,7 @@ namespace Hyked.API.Controllers
             this.mapper = mapper;
         }
 
-        [HttpGet("/api/trip/{tripId}/passenger/{username}", Name = "GetPassenger")]
+        [HttpGet("/api/trip/{tripId}/passengers/{username}", Name = "GetPassenger")]
         public IActionResult GetPassenger([Required] int tripId, [Required] string username)
         {
             try
@@ -82,6 +82,29 @@ namespace Hyked.API.Controllers
             return this.CreatedAtRoute("GetPassenger", new { tripId, username = passengerToShow.PassengerUsername }, passengerToShow);
         }
 
+        [HttpDelete("/api/trip/{tripId}/passengers/{username}")]
+        public IActionResult DeleteTripPassenger([Required] int tripId, [Required] string username)
+        {
+            if (!this.repository.TripExists(tripId))
+            {
+                this.LogMissingTrip(tripId);
+
+                return this.NotFound();
+            }
+
+            TripPassenger passenger = this.repository.GetTripPassenger(tripId, username);
+
+            if (passenger == null)
+            {
+                return this.NotFound();
+            }
+
+            this.repository.DeletePassenger(passenger);
+
+            this.repository.Save();
+
+            return NoContent();
+        }
         #region Helpers
         private void LogMissingTrip(int userId) => this.logger.LogInformation($"Trip with id {userId} wasn't found when accessing user-specific trips");
 

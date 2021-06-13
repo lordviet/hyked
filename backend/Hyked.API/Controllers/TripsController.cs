@@ -194,8 +194,8 @@ namespace Hyked.API.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
-        public IActionResult DeleteTrip(int userId, int id)
+        [HttpDelete("/api/user/{userId}/trip/{id}")]
+        public IActionResult DeleteTrip([Required] int userId, [Required] int id)
         {
             if (!this.repository.UserExists(userId))
             {
@@ -216,8 +216,8 @@ namespace Hyked.API.Controllers
             this.repository.Save();
 
             return NoContent();
-        }        
-        
+        }
+
         #region Helpers
         private void LogMissingUser(int userId) => this.logger.LogInformation($"User with id {userId} wasn't found when accessing user-specific trips");
 
