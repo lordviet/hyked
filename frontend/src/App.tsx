@@ -36,7 +36,13 @@ function App() {
         }}
       />
       {!isLogin && !isRegister && <Header send={send} />}
-      {isHome && <HomePage trips={context.trips} send={send} />}
+      {isHome && (
+        <HomePage
+          username={context.login.username}
+          trips={context.trips}
+          send={send}
+        />
+      )}
       {isLogin && <Login send={send} />}
       {isRegister && <Register send={send} />}
       {isStartTrip && <StartTrip send={send} />}

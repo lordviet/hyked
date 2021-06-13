@@ -14,12 +14,20 @@ import { BaseUri } from "../../shared/constants";
 import { TripDto } from "../../models/response-models/trip-dto";
 import { DriverDto } from "../../models/response-models/driver-dto";
 import { copyContent } from "../../utils/copy";
+import { TripPassengerRequest } from "../../models/request-models/trip-passenger-request";
+import toast from "react-hot-toast";
 
 interface TripCardProps {
+  username?: string;
   tripMeta: TripDto;
+  refreshTrips?: () => void;
 }
 
-export const TripCard = ({ tripMeta }: TripCardProps) => {
+export const TripCard = ({
+  username,
+  tripMeta,
+  refreshTrips,
+}: TripCardProps) => {
   const {
     id,
     fromLocation,
@@ -29,6 +37,7 @@ export const TripCard = ({ tripMeta }: TripCardProps) => {
     takenSeats,
     isActive,
     price,
+    passengers,
   } = tripMeta;
 
   const relevantDate = new Date(departureTimeUtc);
@@ -46,6 +55,30 @@ export const TripCard = ({ tripMeta }: TripCardProps) => {
 
     fetchDriver();
   }, [id]);
+
+  const handleJoinTrip = async (username: string) => {
+    const passengerRequest: TripPassengerRequest = {
+      passengerUsername: username,
+    };
+    try {
+      await axios.post(
+        `${BaseUri}/api/trip/${id}/passengers`,
+        passengerRequest
+      );
+      toast.success("Successfully joined trip!");
+    } catch (error) {
+      toast.error("Could not join trip!");
+    }
+  };
+
+  const handleLeaveTrip = async (username: string) => {
+    try {
+      await axios.delete(`${BaseUri}/api/trip/${id}/passengers/${username}`);
+      toast.success("Successfully left trip!");
+    } catch (error) {
+      toast.error("Could not leave trip!");
+    }
+  };
 
   return (
     <li className="col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200">
@@ -97,13 +130,35 @@ export const TripCard = ({ tripMeta }: TripCardProps) => {
         <div className="-mt-px flex divide-x divide-gray-200">
           {isActive && (
             <div className="w-0 flex-1 flex">
-              <a
-                href="mailto:janecooper@example.com"
-                className="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500"
-              >
-                {infoSvg}
-                <span className="ml-3">Join trip</span>
-              </a>
+              {username &&
+              passengers.find((p) => p.passengerUsername === username) ? (
+                <button
+                  onClick={async () => {
+                    if (username) {
+                      await handleLeaveTrip(username);
+                      refreshTrips && refreshTrips();
+                    }
+                  }}
+                  className="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500"
+                >
+                  {infoSvg}
+                  <span className="ml-3">Leave trip</span>
+                </button>
+              ) : (
+                <button
+                  onClick={async () => {
+                    console.log("hey ther");
+                    if (username) {
+                      await handleJoinTrip(username);
+                      refreshTrips && refreshTrips();
+                    }
+                  }}
+                  className="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500"
+                >
+                  {infoSvg}
+                  <span className="ml-3">Join trip</span>
+                </button>
+              )}
             </div>
           )}
           <div className="-ml-px w-0 flex-1 flex">
@@ -112,7 +167,7 @@ export const TripCard = ({ tripMeta }: TripCardProps) => {
                 driver &&
                   copyContent(
                     driver.phoneNumber,
-                    "Phone number successfully copied to clipboard,",
+                    "Phone number successfully copied to clipboard.",
                     "Could not copy phone number to clipboard."
                   );
               }}

@@ -6,13 +6,16 @@ import { JoinTripModal } from "../Modals/JoinTripModal/JoinTripModal";
 import { TripsList } from "../TripsList/TripsList";
 
 interface HomePageProps {
+  username?: string;
   trips?: TripDto[];
   send: (event: EventTypes, payload?: EventData | undefined) => {};
 }
 
-export const HomePage = ({ trips, send }: HomePageProps) => {
+export const HomePage = ({ username, trips, send }: HomePageProps) => {
   const [isJoinTripModalOpen, setIsJoinTripModalOpen] = useState(false);
-  console.log("trips in component ", trips);
+  
+  const refreshTrips = () => send("RELOAD_TRIPS");
+
   return (
     <>
       {/* <Header /> */}
@@ -75,7 +78,7 @@ export const HomePage = ({ trips, send }: HomePageProps) => {
         <div className="bg-gray-100">
           <div className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
             <h2 className="text-4xl text-left pb-16">Available trips</h2>
-            {trips && <TripsList trips={trips} />}
+            {trips && <TripsList username={username} trips={trips} refreshTrips={refreshTrips} />}
           </div>
         </div>
       </main>
