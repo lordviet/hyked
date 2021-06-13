@@ -11,6 +11,8 @@ namespace Hyked.API.Services.Contracts
 
         IEnumerable<Trip> GetTripsForUser(int userId);
 
+        User GetUserFromTrip(int tripId);
+
         Trip GetTripForUser(int userId, int tripId);
 
         IEnumerable<Trip> FindSpecificTrips(string fromLocation, string toLocation);

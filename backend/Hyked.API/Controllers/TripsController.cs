@@ -100,6 +100,29 @@ namespace Hyked.API.Controllers
             }
         }
 
+        [HttpGet("/api/trip/{tripId}/driver")]
+        public IActionResult GetUserFromTrip([Required] int tripId)
+        {
+            if (!this.repository.TripExists(tripId))
+            {
+                return this.NotFound();
+            }
+
+            Entities.User user = this.repository.GetUserFromTrip(tripId);
+
+            CarMetaDto mappedCar = this.mapper.Map<CarMetaDto>(user.Car);
+
+            DriverDto driver = new DriverDto
+            {
+                Id = user.Id,
+                Username = user.Username,
+                PhoneNumber = user.PhoneNumber,
+                Car = mappedCar,
+            };
+
+            return this.Ok(driver);
+        }
+
         [HttpPost("/api/user/{userId}/trips")]
         public IActionResult AddTrip([Required] int userId, [FromBody] TripRequestDto request)
         {

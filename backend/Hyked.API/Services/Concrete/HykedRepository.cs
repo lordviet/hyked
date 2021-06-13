@@ -26,7 +26,7 @@ namespace Hyked.API.Services.Concrete
         }
 
         public Trip GetTrip(int tripId)
-        {            
+        {
             return this.context
                        .Trips
                        .Where(t => t.Id == tripId)
@@ -52,6 +52,15 @@ namespace Hyked.API.Services.Concrete
                        .FirstOrDefault();
         }
 
+        public User GetUserFromTrip(int tripId)
+        {
+            int userId = this.context.Trips.Where(t => t.Id == tripId).FirstOrDefault().UserId;
+
+            User user = this.GetUser(userId);
+
+            return user;
+        }
+
         public IEnumerable<Trip> FindSpecificTrips(string fromLocation, string toLocation)
         {
             return this.context
@@ -66,6 +75,7 @@ namespace Hyked.API.Services.Concrete
             return this.context
                        .Users
                        .Where(u => u.Id == userId)
+                       .Include(u => u.Car)
                        .FirstOrDefault();
         }
 
@@ -74,6 +84,7 @@ namespace Hyked.API.Services.Concrete
             return this.context
                        .Users
                        .Where(u => u.Username == username && u.Password == password)
+                       .Include(u => u.Car)
                        .FirstOrDefault();
         }
 
