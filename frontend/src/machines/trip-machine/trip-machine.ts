@@ -1,6 +1,7 @@
 import { assign, Machine } from "xstate";
 import { Events } from "./events";
 import {
+  fetchSearchTrips,
   fetchTrips,
   validateApiKey,
   validateLogin,
@@ -100,6 +101,9 @@ export const tripMachine = Machine<Context, StateSchema, Events>({
         TOWARDS_START_TRIP: {
           target: "START_TRIP",
         },
+        TOWARDS_SEARCH_TRIPS: {
+          target: "SEARCH_TRIPS",
+        },
         // TOWARDS_LIST_TRIPS: {
         //   target: "LIST_TRIPS",
         // },
@@ -126,7 +130,28 @@ export const tripMachine = Machine<Context, StateSchema, Events>({
     START_TRIP: {
       // TODO initial state should check whether the user has a car
     },
-    LIST_SEARCH_TRIPS: {},
+    SEARCH_TRIPS: {
+      id: "searchTrips",
+      initial: "LOAD_SEARCH_TRIPS",
+      states: {
+        LOAD_SEARCH_TRIPS: {
+          invoke: {
+            id: "fetchSearchTrips",
+            src: fetchSearchTrips,
+            onDone: {
+              target: "#searchTrips.LIST_SEARCH_TRIPS",
+              actions: [
+                assign((context, event) => ({
+                  trips: event.data,
+                })),
+              ],
+            },
+            onError: {}, // TODO: Show error
+          },
+        },
+        LIST_SEARCH_TRIPS: {},
+      },
+    },
     // TODO refactor this to become list trips, join trip should open a modal that after that sends an API call
   },
   on: {

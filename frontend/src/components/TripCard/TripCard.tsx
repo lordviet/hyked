@@ -151,7 +151,6 @@ export const TripCard = ({
               ) : (
                 <button
                   onClick={async () => {
-                    console.log("hey ther");
                     if (username) {
                       await handleJoinTrip(username);
                       refreshTrips && refreshTrips();

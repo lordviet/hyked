@@ -79,7 +79,7 @@ export const validateRegister = async (_: Context, event: Events) => {
 export const validateApiKey = async (context: Context, _: Events) => {
   const apiKey =
     context.login.apiKey || localStorage.getItem(LocalStorageApiKey);
-  console.log(context);
+
   if (!apiKey) {
     throw new Error("No API key found");
   }
@@ -91,4 +91,23 @@ export const fetchTrips = async () => {
   const trips = result.data;
 
   return trips;
+};
+
+export const fetchSearchTrips = async (context: Context, event: Events) => {
+  if (event.type !== "TOWARDS_SEARCH_TRIPS") {
+    return eventErrorType(event.type, "TOWARDS_SEARCH_TRIPS");
+  }
+
+  const fromLocation = event.fromLocation;
+  const toLocation = event.toLocation;
+
+  try {
+    const result = await axios.get<TripDto>(
+      `${BaseUri}/api/trips/specific/?fromLocation=${fromLocation}&toLocation=${toLocation}`
+    );
+
+    return result.data;
+  } catch (error) {
+    toast.error(error.message);
+  }
 };

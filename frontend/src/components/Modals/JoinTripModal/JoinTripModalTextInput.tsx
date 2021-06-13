@@ -2,11 +2,15 @@ import React from "react";
 import { locationSvg } from "../../../shared/svgElements";
 
 interface JoinTripModalTextInputProps {
+  autoFocus?: boolean;
   heading: string;
+  setValue: (value: string) => void;
 }
 
 export const JoinTripModalTextInput = ({
+  autoFocus,
   heading,
+  setValue,
 }: JoinTripModalTextInputProps) => {
   return (
     <div className="my-8">
@@ -19,7 +23,11 @@ export const JoinTripModalTextInput = ({
         </div>
         <input
           type="text"
+          autoFocus={autoFocus ? true : false}
           name={heading.toLowerCase()}
+          onChange={({ target }) => {
+            setValue(target.value);
+          }}
           id={heading}
           className="focus:ring-indigo-500 focus:border-indigo-500 block w-full py-4 pl-12 sm:text-sm border border-gray-300 rounded-md"
           placeholder="City..."

@@ -32,6 +32,11 @@ export type StateSchema = {
       };
     };
     START_TRIP: {};
-    LIST_SEARCH_TRIPS: {};
+    SEARCH_TRIPS: {
+      states: {
+        LOAD_SEARCH_TRIPS: {};
+        LIST_SEARCH_TRIPS: {};
+      };
+    };
   };
 };

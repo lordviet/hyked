@@ -13,12 +13,11 @@ interface HomePageProps {
 
 export const HomePage = ({ username, trips, send }: HomePageProps) => {
   const [isJoinTripModalOpen, setIsJoinTripModalOpen] = useState(false);
-  
+
   const refreshTrips = () => send("RELOAD_TRIPS");
 
   return (
     <>
-      {/* <Header /> */}
       <main>
         <div>
           <div className="relative">
@@ -71,6 +70,7 @@ export const HomePage = ({ username, trips, send }: HomePageProps) => {
         </div>
         {isJoinTripModalOpen && (
           <JoinTripModal
+            send={send}
             isOpen={isJoinTripModalOpen}
             closeModal={() => setIsJoinTripModalOpen(false)}
           />
@@ -78,7 +78,13 @@ export const HomePage = ({ username, trips, send }: HomePageProps) => {
         <div className="bg-gray-100">
           <div className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
             <h2 className="text-4xl text-left pb-16">Available trips</h2>
-            {trips && <TripsList username={username} trips={trips} refreshTrips={refreshTrips} />}
+            {trips && (
+              <TripsList
+                username={username}
+                trips={trips}
+                refreshTrips={refreshTrips}
+              />
+            )}
           </div>
         </div>
       </main>
