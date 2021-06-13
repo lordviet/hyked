@@ -35,7 +35,7 @@ function App() {
           },
         }}
       />
-      {!isLogin && !isRegister && <Header />}
+      {!isLogin && !isRegister && <Header send={send}/>}
       {isHome && <HomePage send={send} />}
       {isLogin && <Login send={send} />}
       {isRegister && <Register send={send} />}

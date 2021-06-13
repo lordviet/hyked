@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from "react";
+import { EventData } from "xstate";
+import { EventTypes } from "../../machines/trip-machine/events";
+import { LocalStorageApiKey } from "../../shared/constants";
 // import hykedLogo from "../../static/images/hyked-logo.svg";
 
-export const Header = () => {
+interface HeaderProps {
+  send: (event: EventTypes, payload?: EventData | undefined) => {};
+}
+
+export const Header = ({ send }: HeaderProps) => {
   const [isMobileHeaderOpen, setIsMobileHeaderOpen] = useState(false);
   useEffect(() => {
     const close = (e: KeyboardEvent) => {
@@ -71,7 +78,13 @@ export const Header = () => {
             </button>
           </nav>
           <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
-            <button className="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700">
+            <button
+              onClick={() => {
+                localStorage.removeItem(LocalStorageApiKey);
+                send("TOWARDS_LOGIN");
+              }}
+              className="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
+            >
               Log out
             </button>
           </div>
@@ -190,7 +203,13 @@ export const Header = () => {
               </div>
               <div className="py-6 px-5">
                 <div className="mt-6">
-                  <button className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700">
+                  <button
+                    onClick={() => {
+                      localStorage.removeItem(LocalStorageApiKey);
+                      send("TOWARDS_LOGIN");
+                    }}
+                    className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
+                  >
                     Log out
                   </button>
                 </div>
