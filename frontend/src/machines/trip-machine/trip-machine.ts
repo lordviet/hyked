@@ -1,6 +1,6 @@
 import { assign, Machine } from "xstate";
 import { Events } from "./events";
-import { validateApiKey, validateRegister } from "./services";
+import { validateApiKey, validateLogin, validateRegister } from "./services";
 import { Context, StateSchema } from "./states-context";
 
 export const tripMachine = Machine<Context, StateSchema, Events>({
@@ -26,7 +26,38 @@ export const tripMachine = Machine<Context, StateSchema, Events>({
         },
       },
     },
-    LOGIN: {},
+    LOGIN: {
+      id: "login",
+      initial: "IDLE",
+      states: {
+        IDLE: {
+          on: {
+            TOWARDS_VALIDATE_LOGIN: {
+              target: "VALIDATE_LOGIN",
+            },
+          },
+        },
+        VALIDATE_LOGIN: {
+          invoke: {
+            id: "validateLogin",
+            src: validateLogin,
+            onDone: {
+              actions: [
+                // "clearError",
+                assign((_, event) => ({
+                  login: event.data,
+                })),
+              ],
+              target: "#trip.VALIDATE_API_KEY",
+            },
+            onError: {
+              actions: ["receiveError"],
+              target: "IDLE",
+            },
+          },
+        },
+      },
+    },
     REGISTER: {
       id: "register",
       initial: "IDLE",

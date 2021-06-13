@@ -4,13 +4,18 @@ export interface Context {
     userId?: number;
     username?: string;
     apiKey?: string;
-  }
+  };
 }
 
 export type StateSchema = {
   states: {
     VALIDATE_API_KEY: {};
-    LOGIN: {};
+    LOGIN: {
+      states: {
+        IDLE: {};
+        VALIDATE_LOGIN: {};
+      };
+    };
     REGISTER: {
       states: {
         IDLE: {};

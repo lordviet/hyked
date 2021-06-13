@@ -13,6 +13,30 @@ export const eventErrorType = (event: string, expected: string) => {
   );
 };
 
+export const validateLogin = async (_: Context, event: Events) => {
+  if (event.type !== "TOWARDS_VALIDATE_LOGIN") {
+    return eventErrorType(event.type, "TOWARDS_VALIDATE_LOGIN");
+  }
+
+  const username = event.username;
+  const password = event.password;
+
+  try {
+    const result = await axios.get<UserDto>(
+      `${BaseUri}/api/users/login?username=${username}&password=${password}`
+    );
+
+    const userMeta = result.data;
+    localStorage.setItem(LocalStorageApiKey, userMeta.apiKey);
+    // localStorage.setItem("userMeta", JSON.stringify(result.data));
+
+    console.log("RESULT, ", userMeta);
+    return userMeta;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const validateRegister = async (_: Context, event: Events) => {
   if (event.type !== "TOWARDS_VALIDATE_REGISTER") {
     return eventErrorType(event.type, "TOWARDS_VALIDATE_REGISTER");
