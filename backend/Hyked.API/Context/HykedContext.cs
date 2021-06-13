@@ -9,8 +9,10 @@ namespace Hyked.API.Context
         public DbSet<User> Users { get; set; }
         public DbSet<CarMeta> Cars { get; set; }
         public DbSet<Trip> Trips { get; set; }
+        //public DbSet<TripPassenger> TripPassengers { get; set; }
 
         public DbSet<Audit> log_17114131 { get; set; }
+
 
         public HykedContext(DbContextOptions<HykedContext> options)
             : base(options)
@@ -51,9 +53,25 @@ namespace Hyked.API.Context
                 new User()
                 {
                     Id = 4,
-                    Username = "Baby mama",
+                    Username = "Baby papa",
                     Password = "password",
                     PhoneNumber = "0878504141",
+                    LastModifiedUtc = DateTime.UtcNow
+                },
+                new User()
+                {
+                    Id = 5,
+                    Username = "Boro The 1st",
+                    Password = "password",
+                    PhoneNumber = "0873152341",
+                    LastModifiedUtc = DateTime.UtcNow
+                },
+                new User()
+                {
+                    Id = 6,
+                    Username = "Boro The 2nd",
+                    Password = "password",
+                    PhoneNumber = "0873152341",
                     LastModifiedUtc = DateTime.UtcNow
                 }
             );
@@ -148,6 +166,21 @@ namespace Hyked.API.Context
                     LastModifiedUtc = DateTime.UtcNow
                 }
             );
+
+            //modelBuilder.Entity<TripPassenger>().HasData(
+            //    new TripPassenger()
+            //    {
+            //        Id = 1,
+            //        TripId = 1,
+            //        UserId = 4,
+            //    },
+            //    new TripPassenger()
+            //    {
+            //        Id = 2,
+            //        TripId = 2,
+            //        UserId = 5,
+            //    }
+            //);
 
             base.OnModelCreating(modelBuilder);
         }

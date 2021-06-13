@@ -93,7 +93,7 @@ namespace Hyked.API
             app.UseSwaggerUI(
                 c =>
                 {
-                    c.SwaggerEndpoint($"{API_VERSION}/swagger.json", $"4D Scale API {API_VERSION}");
+                    c.SwaggerEndpoint($"{API_VERSION}/swagger.json", $"Hyked API {API_VERSION}");
 
                     c.DisplayOperationId();
                 });

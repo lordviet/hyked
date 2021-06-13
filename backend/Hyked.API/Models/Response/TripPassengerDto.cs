@@ -1,11 +1,15 @@
-﻿namespace Hyked.API.Models.Response
+﻿using System;
+
+namespace Hyked.API.Models.Response
 {
     public class TripPassengerDto
     {
         public int Id { get; set; }
 
+        public string PassengerUsername { get; set; }
+
         public TripDto Trip { get; set; }
 
-        public UserDto Passenger { get; set; }
+        public DateTimeOffset LastModifiedUtc { get; set; }
     }
 }

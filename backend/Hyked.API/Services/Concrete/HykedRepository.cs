@@ -1,7 +1,6 @@
 ﻿using Hyked.API.Context;
 using Hyked.API.Entities;
 using Hyked.API.Services.Contracts;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 

@@ -25,8 +25,7 @@ namespace Hyked.API
                     {
                         var context = scope.ServiceProvider.GetService<HykedContext>();
 
-                        // for demo purposes delete the db & migrate on startup so we can start with clean state
-
+                        // TODO for demo purposes delete the db & migrate on startup so we can start with clean state
                         context.Database.EnsureDeleted();
                         context.Database.Migrate();
                     }

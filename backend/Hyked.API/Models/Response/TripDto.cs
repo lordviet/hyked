@@ -5,9 +5,7 @@ namespace Hyked.API.Models.Response
     public class TripDto
     {
         public string Id { get; set; }
-
-        // Figure out the User Id Detail -> Actually user should contain trips
-
+        
         public string FromLocation { get; set; }
 
         public string ToLocation { get; set; }
