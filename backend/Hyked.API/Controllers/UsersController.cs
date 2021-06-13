@@ -38,8 +38,15 @@ namespace Hyked.API.Controllers
         }
 
         [HttpPost("register")]
-        public IActionResult Register([FromBody] UserRequestDto userRequest)
+        public IActionResult Register([FromBody, Required] UserRequestDto userRequest)
         {
+            string username = userRequest.Username;
+
+            if (this.repository.UserExists(username))
+            {
+                return this.Problem($"Username {username} is taken.");
+            }
+
             string encryptedPass = ComputeSha256Hash(userRequest.Password);
 
             userRequest.Password = encryptedPass;

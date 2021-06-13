@@ -87,6 +87,11 @@ namespace Hyked.API.Services.Concrete
             return this.context.Users.Any(u => u.Id == userId);
         }
 
+        public bool UserExists(string username)
+        {
+            return this.context.Users.Any(u => u.Username == username);
+        }
+
         public bool TripExists(int tripId)
         {
             return this.context.Trips.Any(t => t.Id == tripId);

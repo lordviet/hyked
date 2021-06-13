@@ -23,6 +23,8 @@ namespace Hyked.API.Services.Contracts
 
         bool UserExists(int userId);
 
+        bool UserExists(string username);
+
         bool TripExists(int tripId);
 
         IEnumerable<TripPassenger> GetPassengersForTrip(int tripId);
