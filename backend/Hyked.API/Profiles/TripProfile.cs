@@ -8,7 +8,7 @@ namespace Hyked.API.Profiles
         {
             CreateMap<Entities.Trip, Models.Response.TripDto>();
 
-            CreateMap<Models.Request.TripRequestDto, Entities.Trip>().ReverseMap();            
+            CreateMap<Models.Request.TripRequestDto, Entities.Trip>().ReverseMap();
         }
     }
 }

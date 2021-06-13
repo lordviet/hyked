@@ -1,6 +1,7 @@
 ﻿using Hyked.API.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 
 namespace Hyked.API.Context
 {
@@ -9,7 +10,7 @@ namespace Hyked.API.Context
         public DbSet<User> Users { get; set; }
         public DbSet<CarMeta> Cars { get; set; }
         public DbSet<Trip> Trips { get; set; }
-        //public DbSet<TripPassenger> TripPassengers { get; set; }
+        public DbSet<TripPassenger> TripPassengers { get; set; }
 
         public DbSet<Audit> log_17114131 { get; set; }
 
@@ -122,7 +123,7 @@ namespace Hyked.API.Context
                     Price = 8,
                     DepartureTimeUtc = DateTime.UtcNow,
                     AvailableSeats = 3,
-                    TakenSeats = 0,
+                    Passengers = new List<TripPassenger>(),
                     IsActive = true,
                     LastModifiedUtc = DateTime.UtcNow
                 },
@@ -135,7 +136,7 @@ namespace Hyked.API.Context
                     Price = 8,
                     DepartureTimeUtc = DateTime.UtcNow,
                     AvailableSeats = 3,
-                    TakenSeats = 0,
+                    Passengers = new List<TripPassenger>(),
                     IsActive = false,
                     LastModifiedUtc = DateTime.UtcNow
                 },
@@ -148,7 +149,7 @@ namespace Hyked.API.Context
                     Price = 10.50,
                     DepartureTimeUtc = DateTime.UtcNow,
                     AvailableSeats = 2,
-                    TakenSeats = 2,
+                    Passengers = new List<TripPassenger>(),
                     IsActive = false,
                     LastModifiedUtc = DateTime.UtcNow
                 },
@@ -161,7 +162,7 @@ namespace Hyked.API.Context
                     Price = 20,
                     DepartureTimeUtc = DateTime.UtcNow,
                     AvailableSeats = 4,
-                    TakenSeats = 2,
+                    Passengers = new List<TripPassenger>(),
                     IsActive = true,
                     LastModifiedUtc = DateTime.UtcNow
                 }

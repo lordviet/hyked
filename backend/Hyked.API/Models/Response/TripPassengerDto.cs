@@ -6,9 +6,9 @@ namespace Hyked.API.Models.Response
     {
         public int Id { get; set; }
 
-        public string PassengerUsername { get; set; }
+        //public TripDto Trip { get; set; }
 
-        public TripDto Trip { get; set; }
+        public string PassengerUsername { get; set; }
 
         public DateTimeOffset LastModifiedUtc { get; set; }
     }

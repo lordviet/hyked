@@ -2,6 +2,7 @@
 {
     public class TripPassengerRequestDto
     {
+        public string PassengerUsername { get; set; }
         // TODO
     }
 }

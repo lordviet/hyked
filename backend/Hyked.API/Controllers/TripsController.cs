@@ -216,7 +216,7 @@ namespace Hyked.API.Controllers
             this.repository.Save();
 
             return NoContent();
-        }
+        }        
         
         #region Helpers
         private void LogMissingUser(int userId) => this.logger.LogInformation($"User with id {userId} wasn't found when accessing user-specific trips");

@@ -14,13 +14,9 @@ namespace Hyked.API.Entities
 
         public int TripId { get; set; }
         
-        [ForeignKey("UserId")]
-        public User Passenger { get; set; }
-
-        public int UserId { get; set; }
+        public string PassengerUsername { get; set; }
 
         [Required]
         public DateTimeOffset LastModifiedUtc { get; set; } = DateTimeOffset.UtcNow;
-
     }
 }

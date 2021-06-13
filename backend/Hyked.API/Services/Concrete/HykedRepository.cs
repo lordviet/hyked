@@ -1,6 +1,7 @@
 ﻿using Hyked.API.Context;
 using Hyked.API.Entities;
 using Hyked.API.Services.Contracts;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -19,16 +20,17 @@ namespace Hyked.API.Services.Concrete
         {
             return this.context
                        .Trips
+                       .Include(t => t.Passengers)
                        .OrderBy(t => t.DepartureTimeUtc)
                        .ToList();
         }
 
         public Trip GetTrip(int tripId)
-        {
-            // include User? 
+        {            
             return this.context
                        .Trips
                        .Where(t => t.Id == tripId)
+                       .Include(t => t.Passengers)
                        .FirstOrDefault();
         }
 
@@ -37,6 +39,7 @@ namespace Hyked.API.Services.Concrete
             return this.context
                        .Trips
                        .Where(t => t.UserId == userId)
+                       .Include(t => t.Passengers)
                        .ToList();
         }
 
@@ -45,6 +48,7 @@ namespace Hyked.API.Services.Concrete
             return this.context
                        .Trips
                        .Where(t => t.UserId == userId && t.Id == tripId)
+                       .Include(t => t.Passengers)
                        .FirstOrDefault();
         }
 
@@ -53,6 +57,7 @@ namespace Hyked.API.Services.Concrete
             return this.context
                        .Trips
                        .Where(t => t.FromLocation == fromLocation && t.ToLocation == toLocation)
+                       .Include(t => t.Passengers)
                        .ToList();
         }
 
@@ -87,6 +92,34 @@ namespace Hyked.API.Services.Concrete
             return this.context.Trips.Any(t => t.Id == tripId);
         }
 
+        public IEnumerable<TripPassenger> GetPassengersForTrip(int tripId)
+        {
+            return this.context
+                       .TripPassengers
+                       .Where(t => t.TripId == tripId)
+                       .ToList();
+        }
+
+        public TripPassenger GetTripPassenger(int tripId, string username)
+        {
+            return this.context
+                       .TripPassengers
+                       .Where(tp => tp.TripId == tripId && tp.PassengerUsername == username)
+                       .FirstOrDefault();
+        }
+
+        public void AddPassengerForTrip(int tripId, TripPassenger tripPassenger)
+        {
+            var trip = this.GetTrip(tripId);
+
+            trip.Passengers.Add(tripPassenger);
+        }
+
+        public void DeletePassenger(TripPassenger tripPassenger)
+        {
+            this.context.TripPassengers.Remove(tripPassenger);
+        }
+
         public CarMeta GetCarForUser(int userId)
         {
             return this.context
@@ -101,11 +134,6 @@ namespace Hyked.API.Services.Concrete
 
             user.Trips.Add(trip);
         }
-
-        //public void EditTripForUser(int userId, Trip trip)
-        //{
-        //    throw new System.NotImplementedException();
-        //}
 
         public void DeleteTrip(Trip trip)
         {

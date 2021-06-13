@@ -23,18 +23,30 @@ namespace Hyked.API.Services.Contracts
 
         bool UserExists(int userId);
 
+        bool TripExists(int tripId);
+
+        IEnumerable<TripPassenger> GetPassengersForTrip(int tripId);
+
         void AddTripForUser(int userId, Trip trip);
 
-        //void EditTripForUser(int userId, Trip trip);
-
         void DeleteTrip(Trip trip);
+        #region Trip Passenger repository actions
+        TripPassenger GetTripPassenger(int tripId, string username);
 
+        void AddPassengerForTrip(int tripId, TripPassenger tripPassenger);
+
+        void DeletePassenger(TripPassenger tripPassenger);
+
+        #endregion 
+
+        #region Car repository actions
         CarMeta GetCarForUser(int userId);
 
         void AddCarForUser(int userId, CarMeta car);
 
         void DeleteCar(CarMeta car);
 
+        #endregion
         void AddLog(Audit log);
 
         bool Save();
