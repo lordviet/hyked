@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using Hyked.API.Entities;
 using System.Text;
 using System.Security.Cryptography;
+using Hyked.API.Models.Response;
 
 namespace Hyked.API.Controllers
 {
@@ -22,7 +23,7 @@ namespace Hyked.API.Controllers
             this.mapper = mapper;
         }
 
-        [HttpGet("login")]
+        [HttpGet("login", Name = "Login")]
         public IActionResult Login([Required] string username, [Required] string password)
         {
             string encryptedPass = ComputeSha256Hash(password);
@@ -34,7 +35,16 @@ namespace Hyked.API.Controllers
                 return this.NotFound();
             }
 
-            return this.Content($"API-KEY-{ComputeSha256Hash($"{username}{encryptedPass}")}");
+            string ApiKey = $"API-KEY-{ComputeSha256Hash($"{username}{encryptedPass}")}";
+
+            UserDto response = new UserDto
+            {
+                Id = user.Id,
+                Username = user.Username,
+                ApiKey = ApiKey
+            };
+
+            return this.Ok(response);
         }
 
         [HttpPost("register")]
@@ -63,7 +73,16 @@ namespace Hyked.API.Controllers
 
             this.repository.Save();
 
-            return this.Content($"API-KEY-{ComputeSha256Hash($"{user.Username}{encryptedPass}")}");
+            string ApiKey = $"API-KEY-{ComputeSha256Hash($"{user.Username}{encryptedPass}")}";
+
+            UserDto response = new UserDto
+            {
+                Id = user.Id,
+                Username = user.Username,
+                ApiKey = ApiKey
+            };
+
+            return this.CreatedAtRoute("Login", new { username, password = userRequest.Password }, response);
         }
 
         #region Helpers
