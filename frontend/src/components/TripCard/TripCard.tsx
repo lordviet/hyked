@@ -62,6 +62,15 @@ export const TripCard = ({
     fetchDriver();
   }, [id]);
 
+  const handleDeleteTrip = async (userId: number, tripId: number) => {
+    try {
+      await axios.delete(`${BaseUri}/api/user/${userId}/trip/${tripId}`);
+      toast.success("Trip successfully deleted.");
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
   const handleJoinTrip = async (username: string) => {
     const passengerRequest: TripPassengerRequest = {
       passengerUsername: username,
@@ -137,14 +146,11 @@ export const TripCard = ({
           <div className="-mt-px flex divide-x divide-gray-200">
             {isActive && (
               <div className="w-0 flex-1 flex">
-                {username && (
+                {driver && (
                   <button
                     onClick={async () => {
-                      if (username) {
-                        // await handleLeaveTrip(username);
-                        console.log("NE ZNAM SI KVO TRIP");
-                        refreshTrips && refreshTrips();
-                      }
+                      await handleDeleteTrip(driver.id, tripMeta.id);
+                      refreshTrips && refreshTrips();
                     }}
                     className="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500"
                   >
@@ -155,15 +161,18 @@ export const TripCard = ({
               </div>
             )}
             <div className="-ml-px w-0 flex-1 flex">
-              <button
-                onClick={() => {
-                  console.log("DELETE TRIP");
-                }}
-                className="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500"
-              >
-                {trashSvg}
-                <span className="ml-3">Delete trip</span>
-              </button>
+              {driver && (
+                <button
+                  onClick={async () => {
+                    await handleDeleteTrip(driver.id, tripMeta.id);
+                    refreshTrips && refreshTrips();
+                  }}
+                  className="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500"
+                >
+                  {trashSvg}
+                  <span className="ml-3">Delete trip</span>
+                </button>
+              )}
             </div>
           </div>
         ) : (
