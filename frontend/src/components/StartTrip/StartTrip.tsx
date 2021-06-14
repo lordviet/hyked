@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { EventData } from "xstate";
 import { EventTypes } from "../../machines/trip-machine/events";
 import { TripRequest } from "../../models/request-models/trip-request";
@@ -13,7 +13,8 @@ interface StartTripProps {
   userId?: number;
 }
 
-export const StartTrip = ({ send, car, userId }: StartTripProps) => {
+export const StartTrip = ({ send, userId }: StartTripProps) => {
+  const [car, setCar] = useState<CarMetaDto | null>(null);
   const [fromLocation, setFromLocation] = useState("");
   const [toLocation, setToLocation] = useState("");
   const [price, setPrice] = useState<number | null>(null);
@@ -24,6 +25,26 @@ export const StartTrip = ({ send, car, userId }: StartTripProps) => {
   const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   };
+
+  useEffect(() => {
+    const fetchCar = async () => {
+      try {
+        const result = await axios.get<CarMetaDto>(
+          `${BaseUri}/api/user/${userId}/car`
+        );
+        setCar(result.data);
+      } catch (error) {
+        send("TOWARDS_CAR_MENU");
+      }
+    };
+
+    fetchCar();
+  }, [userId, send]);
+
+  useEffect(() => {
+    if (!car) {
+    }
+  }, [car, send]);
 
   const handleTripCreation = async (
     id: number,
@@ -178,7 +199,7 @@ export const StartTrip = ({ send, car, userId }: StartTripProps) => {
                           <input
                             type="number"
                             min="1"
-                            max={car && car.passengerSeats}
+                            max={car?.passengerSeats}
                             name="seats"
                             id="seats"
                             onChange={({ target }) => {

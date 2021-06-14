@@ -62,9 +62,7 @@ function App() {
           trips={context.trips}
         />
       )}
-      {isCarMenu && (
-        <AddCar userId={context.login.id} car={context.login.car} send={send} />
-      )}
+      {isCarMenu && <AddCar userId={context.login.id} send={send} />}
     </div>
   );
 }

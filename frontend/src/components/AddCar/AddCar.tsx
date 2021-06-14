@@ -9,7 +9,6 @@ import { CarMetaDto } from "../../models/response-models/car-meta-dto";
 
 interface AddCarProps {
   send: (event: EventTypes, payload?: EventData | undefined) => {};
-  car?: CarMetaDto;
   userId?: number;
 }
 
