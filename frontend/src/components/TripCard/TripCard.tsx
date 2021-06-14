@@ -5,9 +5,11 @@ import axios from "axios";
 // Icons
 import {
   crossSvg,
+  flagSvg,
   locationSvg,
   phoneSvg,
   tickSvg,
+  trashSvg,
 } from "../../shared/svgElements";
 import { calendarSvg } from "../../shared/svgElements";
 import { clockSvg } from "../../shared/svgElements";
@@ -131,56 +133,91 @@ export const TripCard = ({
         </div>
       </div>
       <div>
-        <div className="-mt-px flex divide-x divide-gray-200">
-          {isActive && (
-            <div className="w-0 flex-1 flex">
-              {username &&
-              passengers.find((p) => p.passengerUsername === username) ? (
-                <button
-                  onClick={async () => {
-                    if (username) {
-                      await handleLeaveTrip(username);
-                      refreshTrips && refreshTrips();
-                    }
-                  }}
-                  className="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500"
-                >
-                  {crossSvg}
-                  <span className="ml-3">Leave trip</span>
-                </button>
-              ) : (
-                <button
-                  onClick={async () => {
-                    if (username) {
-                      await handleJoinTrip(username);
-                      refreshTrips && refreshTrips();
-                    }
-                  }}
-                  className="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500"
-                >
-                  {tickSvg}
-                  <span className="ml-3">Join trip</span>
-                </button>
-              )}
+        {driver && driver.username === username ? (
+          <div className="-mt-px flex divide-x divide-gray-200">
+            {isActive && (
+              <div className="w-0 flex-1 flex">
+                {username && (
+                  <button
+                    onClick={async () => {
+                      if (username) {
+                        // await handleLeaveTrip(username);
+                        console.log("NE ZNAM SI KVO TRIP");
+                        refreshTrips && refreshTrips();
+                      }
+                    }}
+                    className="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500"
+                  >
+                    {flagSvg}
+                    <span className="ml-3">Mark as completed</span>
+                  </button>
+                )}
+              </div>
+            )}
+            <div className="-ml-px w-0 flex-1 flex">
+              <button
+                onClick={() => {
+                  console.log("DELETE TRIP");
+                }}
+                className="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500"
+              >
+                {trashSvg}
+                <span className="ml-3">Delete trip</span>
+              </button>
             </div>
-          )}
-          <div className="-ml-px w-0 flex-1 flex">
-            <button
-              onClick={() => {
-                driver &&
-                  copyContent(
-                    driver.phoneNumber,
-                    "Phone number successfully copied to clipboard.",
-                    "Could not copy phone number to clipboard."
-                  );
-              }}
-              className="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500"
-            >
-              {phoneSvg}
-              <span className="ml-3">Get number</span>
-            </button>
           </div>
-        </div>
+        ) : (
+          <div className="-mt-px flex divide-x divide-gray-200">
+            {isActive && (
+              <div className="w-0 flex-1 flex">
+                {username &&
+                passengers.find((p) => p.passengerUsername === username) ? (
+                  <button
+                    onClick={async () => {
+                      if (username) {
+                        await handleLeaveTrip(username);
+                        refreshTrips && refreshTrips();
+                      }
+                    }}
+                    className="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500"
+                  >
+                    {crossSvg}
+                    <span className="ml-3">Leave trip</span>
+                  </button>
+                ) : (
+                  <button
+                    onClick={async () => {
+                      if (username) {
+                        await handleJoinTrip(username);
+                        refreshTrips && refreshTrips();
+                      }
+                    }}
+                    className="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500"
+                  >
+                    {tickSvg}
+                    <span className="ml-3">Join trip</span>
+                  </button>
+                )}
+              </div>
+            )}
+            <div className="-ml-px w-0 flex-1 flex">
+              <button
+                onClick={() => {
+                  driver &&
+                    copyContent(
+                      driver.phoneNumber,
+                      "Phone number successfully copied to clipboard.",
+                      "Could not copy phone number to clipboard."
+                    );
+                }}
+                className="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500"
+              >
+                {phoneSvg}
+                <span className="ml-3">Get number</span>
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </li>
   );

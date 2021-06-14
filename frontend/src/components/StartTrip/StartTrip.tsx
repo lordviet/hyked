@@ -46,6 +46,7 @@ export const StartTrip = ({ send, car, userId }: StartTripProps) => {
     try {
       await axios.post(`${BaseUri}/api/user/${id}/trips`, tripRequest);
       toast.success("Trip successfully created");
+      send("TOWARDS_HOME");
     } catch (error) {
       toast.error(error.message);
     }
@@ -177,6 +178,7 @@ export const StartTrip = ({ send, car, userId }: StartTripProps) => {
                           <input
                             type="number"
                             min="1"
+                            max={car && car.passengerSeats}
                             name="seats"
                             id="seats"
                             onChange={({ target }) => {
@@ -203,7 +205,8 @@ export const StartTrip = ({ send, car, userId }: StartTripProps) => {
                           type="submit"
                           className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                           onClick={async () => {
-                            userId &&
+                            car &&
+                              userId &&
                               price &&
                               availableSeats &&
                               (await handleTripCreation(
@@ -215,7 +218,6 @@ export const StartTrip = ({ send, car, userId }: StartTripProps) => {
                                 hourInput,
                                 availableSeats
                               ));
-                            send("TOWARDS_HOME");
                           }}
                         >
                           Create trip
