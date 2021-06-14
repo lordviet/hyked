@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { EventData } from "xstate";
 import { EventTypes } from "../../machines/trip-machine/events";
 import { LocalStorageApiKey } from "../../shared/constants";
-// import hykedLogo from "../../static/images/hyked-logo.svg";
+import { carAlternativeSvg, homeSvg } from "../../shared/svgElements";
 
 interface HeaderProps {
   send: (event: EventTypes, payload?: EventData | undefined) => {};
@@ -75,9 +75,6 @@ export const Header = ({ send }: HeaderProps) => {
             >
               Home
             </button>
-            <button className="text-base font-medium text-gray-500 hover:text-gray-900">
-              Active trips
-            </button>
             <button
               onClick={() => send("TOWARDS_CAR_MENU")}
               className="text-base font-medium text-gray-500 hover:text-gray-900"
@@ -140,53 +137,6 @@ export const Header = ({ send }: HeaderProps) => {
                 </div>
                 <div className="mt-6">
                   <nav className="grid grid-cols-1 gap-7">
-                    <button className="-m-3 p-3 flex items-center rounded-lg hover:bg-gray-50">
-                      <div className="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-md bg-indigo-600 text-white">
-                        <svg
-                          className="h-6 w-6"
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                          aria-hidden="true"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"
-                          />
-                        </svg>
-                      </div>
-                      <div className="ml-4 text-base font-medium text-gray-900">
-                        Active trips
-                      </div>
-                    </button>
-                    <button
-                      onClick={() => send("TOWARDS_CAR_MENU")}
-                      className="-m-3 p-3 flex items-center rounded-lg hover:bg-gray-50"
-                    >
-                      <div className="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-md bg-indigo-600 text-white">
-                        <svg
-                          className="h-6 w-6"
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                          aria-hidden="true"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"
-                          />
-                        </svg>
-                      </div>
-                      <div className="ml-4 text-base font-medium text-gray-900">
-                        My car
-                      </div>
-                    </button>
                     <button
                       onClick={() => {
                         send("TOWARDS_HOME");
@@ -194,24 +144,21 @@ export const Header = ({ send }: HeaderProps) => {
                       className="-m-3 p-3 flex items-center rounded-lg hover:bg-gray-50"
                     >
                       <div className="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-md bg-indigo-600 text-white">
-                        <svg
-                          className="h-6 w-6"
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                          aria-hidden="true"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"
-                          />
-                        </svg>
+                        {homeSvg}
                       </div>
                       <div className="ml-4 text-base font-medium text-gray-900">
                         Home
+                      </div>
+                    </button>
+                    <button
+                      onClick={() => send("TOWARDS_CAR_MENU")}
+                      className="-m-3 p-3 flex items-center rounded-lg hover:bg-gray-50"
+                    >
+                      <div className="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-md bg-indigo-600 text-white">
+                        {carAlternativeSvg}
+                      </div>
+                      <div className="ml-4 text-base font-medium text-gray-900">
+                        My car
                       </div>
                     </button>
                   </nav>
