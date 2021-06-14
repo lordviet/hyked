@@ -20,16 +20,18 @@ namespace Hyked.API.Services.Concrete
         {
             return this.context
                        .Trips
+                       .Include(t => t.Passengers)
                        .OrderBy(t => t.DepartureTimeUtc)
+                       .Reverse()
                        .ToList();
         }
 
         public Trip GetTrip(int tripId)
         {
-            // include User? 
             return this.context
                        .Trips
                        .Where(t => t.Id == tripId)
+                       .Include(t => t.Passengers)
                        .FirstOrDefault();
         }
 
@@ -38,6 +40,7 @@ namespace Hyked.API.Services.Concrete
             return this.context
                        .Trips
                        .Where(t => t.UserId == userId)
+                       .Include(t => t.Passengers)
                        .ToList();
         }
 
@@ -46,7 +49,17 @@ namespace Hyked.API.Services.Concrete
             return this.context
                        .Trips
                        .Where(t => t.UserId == userId && t.Id == tripId)
+                       .Include(t => t.Passengers)
                        .FirstOrDefault();
+        }
+
+        public User GetUserFromTrip(int tripId)
+        {
+            int userId = this.context.Trips.Where(t => t.Id == tripId).FirstOrDefault().UserId;
+
+            User user = this.GetUser(userId);
+
+            return user;
         }
 
         public IEnumerable<Trip> FindSpecificTrips(string fromLocation, string toLocation)
@@ -54,6 +67,7 @@ namespace Hyked.API.Services.Concrete
             return this.context
                        .Trips
                        .Where(t => t.FromLocation == fromLocation && t.ToLocation == toLocation)
+                       .Include(t => t.Passengers)
                        .ToList();
         }
 
@@ -62,6 +76,7 @@ namespace Hyked.API.Services.Concrete
             return this.context
                        .Users
                        .Where(u => u.Id == userId)
+                       .Include(u => u.Car)
                        .FirstOrDefault();
         }
 
@@ -70,6 +85,7 @@ namespace Hyked.API.Services.Concrete
             return this.context
                        .Users
                        .Where(u => u.Username == username && u.Password == password)
+                       .Include(u => u.Car)
                        .FirstOrDefault();
         }
 
@@ -83,9 +99,42 @@ namespace Hyked.API.Services.Concrete
             return this.context.Users.Any(u => u.Id == userId);
         }
 
+        public bool UserExists(string username)
+        {
+            return this.context.Users.Any(u => u.Username == username);
+        }
+
         public bool TripExists(int tripId)
         {
             return this.context.Trips.Any(t => t.Id == tripId);
+        }
+
+        public IEnumerable<TripPassenger> GetPassengersForTrip(int tripId)
+        {
+            return this.context
+                       .TripPassengers
+                       .Where(t => t.TripId == tripId)
+                       .ToList();
+        }
+
+        public TripPassenger GetTripPassenger(int tripId, string username)
+        {
+            return this.context
+                       .TripPassengers
+                       .Where(tp => tp.TripId == tripId && tp.PassengerUsername == username)
+                       .FirstOrDefault();
+        }
+
+        public void AddPassengerForTrip(int tripId, TripPassenger tripPassenger)
+        {
+            var trip = this.GetTrip(tripId);
+
+            trip.Passengers.Add(tripPassenger);
+        }
+
+        public void DeletePassenger(TripPassenger tripPassenger)
+        {
+            this.context.TripPassengers.Remove(tripPassenger);
         }
 
         public CarMeta GetCarForUser(int userId)
@@ -102,11 +151,6 @@ namespace Hyked.API.Services.Concrete
 
             user.Trips.Add(trip);
         }
-
-        //public void EditTripForUser(int userId, Trip trip)
-        //{
-        //    throw new System.NotImplementedException();
-        //}
 
         public void DeleteTrip(Trip trip)
         {

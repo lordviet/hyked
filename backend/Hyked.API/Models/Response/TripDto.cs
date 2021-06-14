@@ -1,13 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Hyked.API.Models.Response
 {
     public class TripDto
     {
         public string Id { get; set; }
-
-        // Figure out the User Id Detail -> Actually user should contain trips
-
+        
         public string FromLocation { get; set; }
 
         public string ToLocation { get; set; }
@@ -17,11 +16,19 @@ namespace Hyked.API.Models.Response
         public DateTimeOffset DepartureTimeUtc { get; set; }
 
         public int AvailableSeats { get; set; }
+        
+        public int TakenSeats
+        {
+            get
+            {
+                return this.Passengers.Count;
+            }
+        }
 
-        public int TakenSeats { get; set; }
+        public ICollection<TripPassengerDto> Passengers { get; set; } = new List<TripPassengerDto>();
 
         public bool IsActive { get; set; }
 
-        public DateTimeOffset LastModifiedUtc { get; set; }
+        public DateTimeOffset LastModifiedUtc17114131 { get; set; }
     }
 }

@@ -24,6 +24,6 @@ namespace Hyked.API.Entities
         public ICollection<Trip> Trips { get; set; } = new List<Trip>();
 
         [Required]
-        public DateTimeOffset LastModifiedUtc { get; set; }
+        public DateTimeOffset LastModifiedUtc17114131 { get; set; } = DateTimeOffset.UtcNow;
     }
 }

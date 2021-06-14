@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using Hyked.API.Entities;
 using System.Text;
 using System.Security.Cryptography;
+using Hyked.API.Models.Response;
 
 namespace Hyked.API.Controllers
 {
@@ -22,7 +23,7 @@ namespace Hyked.API.Controllers
             this.mapper = mapper;
         }
 
-        [HttpGet("login")]
+        [HttpGet("login", Name = "Login")]
         public IActionResult Login([Required] string username, [Required] string password)
         {
             string encryptedPass = ComputeSha256Hash(password);
@@ -34,12 +35,31 @@ namespace Hyked.API.Controllers
                 return this.NotFound();
             }
 
-            return this.Content($"API-KEY-{ComputeSha256Hash($"{username}{encryptedPass}")}");
+            string ApiKey = $"API-KEY-{ComputeSha256Hash($"{username}{encryptedPass}")}";
+
+            CarMetaDto mappedCar = this.mapper.Map<CarMetaDto>(user.Car);
+
+            UserDto response = new UserDto
+            {
+                Id = user.Id,
+                Username = user.Username,
+                ApiKey = ApiKey,
+                Car = mappedCar
+            };
+
+            return this.Ok(response);
         }
 
         [HttpPost("register")]
-        public IActionResult Register([FromBody] UserRequestDto userRequest)
+        public IActionResult Register([FromBody, Required] UserRequestDto userRequest)
         {
+            string username = userRequest.Username;
+
+            if (this.repository.UserExists(username))
+            {
+                return this.Problem($"Username {username} is taken.");
+            }
+
             string encryptedPass = ComputeSha256Hash(userRequest.Password);
 
             userRequest.Password = encryptedPass;
@@ -56,7 +76,19 @@ namespace Hyked.API.Controllers
 
             this.repository.Save();
 
-            return this.Content($"API-KEY-{ComputeSha256Hash($"{user.Username}{encryptedPass}")}");
+            string ApiKey = $"API-KEY-{ComputeSha256Hash($"{user.Username}{encryptedPass}")}";
+
+            CarMetaDto mappedCar = this.mapper.Map<CarMetaDto>(user.Car);
+
+            UserDto response = new UserDto
+            {
+                Id = user.Id,
+                Username = user.Username,
+                ApiKey = ApiKey,
+                Car = mappedCar
+            };
+
+            return this.CreatedAtRoute("Login", new { username, password = userRequest.Password }, response);
         }
 
         #region Helpers

@@ -100,6 +100,29 @@ namespace Hyked.API.Controllers
             }
         }
 
+        [HttpGet("/api/trip/{tripId}/driver")]
+        public IActionResult GetUserFromTrip([Required] int tripId)
+        {
+            if (!this.repository.TripExists(tripId))
+            {
+                return this.NotFound();
+            }
+
+            Entities.User user = this.repository.GetUserFromTrip(tripId);
+
+            CarMetaDto mappedCar = this.mapper.Map<CarMetaDto>(user.Car);
+
+            DriverDto driver = new DriverDto
+            {
+                Id = user.Id,
+                Username = user.Username,
+                PhoneNumber = user.PhoneNumber,
+                Car = mappedCar,
+            };
+
+            return this.Ok(driver);
+        }
+
         [HttpPost("/api/user/{userId}/trips")]
         public IActionResult AddTrip([Required] int userId, [FromBody] TripRequestDto request)
         {
@@ -194,8 +217,8 @@ namespace Hyked.API.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
-        public IActionResult DeleteTrip(int userId, int id)
+        [HttpDelete("/api/user/{userId}/trip/{id}")]
+        public IActionResult DeleteTrip([Required] int userId, [Required] int id)
         {
             if (!this.repository.UserExists(userId))
             {
@@ -217,7 +240,7 @@ namespace Hyked.API.Controllers
 
             return NoContent();
         }
-        
+
         #region Helpers
         private void LogMissingUser(int userId) => this.logger.LogInformation($"User with id {userId} wasn't found when accessing user-specific trips");
 

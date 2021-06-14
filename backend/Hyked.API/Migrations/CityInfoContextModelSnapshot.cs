@@ -35,7 +35,7 @@ namespace Hyked.API.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTimeOffset>("TimeOfOperationUtc")
+                    b.Property<DateTimeOffset>("TimeOfOperationUtc17114131")
                         .HasColumnType("datetimeoffset");
 
                     b.HasKey("Id");
@@ -55,7 +55,7 @@ namespace Hyked.API.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<DateTimeOffset>("LastModifiedUtc")
+                    b.Property<DateTimeOffset>("LastModifiedUtc17114131")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Manufacturer")
@@ -89,7 +89,7 @@ namespace Hyked.API.Migrations
                         {
                             Id = 1,
                             Color = "Space gray",
-                            LastModifiedUtc = new DateTimeOffset(new DateTime(2021, 6, 12, 23, 44, 59, 439, DateTimeKind.Unspecified).AddTicks(8436), new TimeSpan(0, 0, 0, 0, 0)),
+                            LastModifiedUtc17114131 = new DateTimeOffset(new DateTime(2021, 6, 14, 2, 55, 47, 318, DateTimeKind.Unspecified).AddTicks(4034), new TimeSpan(0, 0, 0, 0, 0)),
                             Manufacturer = "Benz",
                             Model = "XLS",
                             PassengerSeats = 4,
@@ -100,7 +100,7 @@ namespace Hyked.API.Migrations
                         {
                             Id = 2,
                             Color = "Panda",
-                            LastModifiedUtc = new DateTimeOffset(new DateTime(2021, 6, 12, 23, 44, 59, 439, DateTimeKind.Unspecified).AddTicks(9114), new TimeSpan(0, 0, 0, 0, 0)),
+                            LastModifiedUtc17114131 = new DateTimeOffset(new DateTime(2021, 6, 14, 2, 55, 47, 318, DateTimeKind.Unspecified).AddTicks(4985), new TimeSpan(0, 0, 0, 0, 0)),
                             Manufacturer = "BMW",
                             Model = "X6",
                             PassengerSeats = 3,
@@ -111,7 +111,7 @@ namespace Hyked.API.Migrations
                         {
                             Id = 3,
                             Color = "Blue",
-                            LastModifiedUtc = new DateTimeOffset(new DateTime(2021, 6, 12, 23, 44, 59, 439, DateTimeKind.Unspecified).AddTicks(9122), new TimeSpan(0, 0, 0, 0, 0)),
+                            LastModifiedUtc17114131 = new DateTimeOffset(new DateTime(2021, 6, 14, 2, 55, 47, 318, DateTimeKind.Unspecified).AddTicks(4995), new TimeSpan(0, 0, 0, 0, 0)),
                             Manufacturer = "Audi",
                             Model = "A3",
                             PassengerSeats = 4,
@@ -140,14 +140,11 @@ namespace Hyked.API.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<DateTimeOffset>("LastModifiedUtc")
+                    b.Property<DateTimeOffset>("LastModifiedUtc17114131")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<double>("Price")
                         .HasColumnType("float");
-
-                    b.Property<int>("TakenSeats")
-                        .HasColumnType("int");
 
                     b.Property<string>("ToLocation")
                         .IsRequired()
@@ -167,12 +164,11 @@ namespace Hyked.API.Migrations
                         {
                             Id = 1,
                             AvailableSeats = 3,
-                            DepartureTimeUtc = new DateTimeOffset(new DateTime(2021, 6, 12, 23, 44, 59, 440, DateTimeKind.Unspecified).AddTicks(3585), new TimeSpan(0, 0, 0, 0, 0)),
+                            DepartureTimeUtc = new DateTimeOffset(new DateTime(2021, 6, 14, 2, 55, 47, 319, DateTimeKind.Unspecified).AddTicks(1313), new TimeSpan(0, 0, 0, 0, 0)),
                             FromLocation = "Sofia",
                             IsActive = true,
-                            LastModifiedUtc = new DateTimeOffset(new DateTime(2021, 6, 12, 23, 44, 59, 440, DateTimeKind.Unspecified).AddTicks(5862), new TimeSpan(0, 0, 0, 0, 0)),
+                            LastModifiedUtc17114131 = new DateTimeOffset(new DateTime(2021, 6, 14, 2, 55, 47, 319, DateTimeKind.Unspecified).AddTicks(4163), new TimeSpan(0, 0, 0, 0, 0)),
                             Price = 8.0,
-                            TakenSeats = 0,
                             ToLocation = "Karlovo",
                             UserId = 1
                         },
@@ -180,12 +176,11 @@ namespace Hyked.API.Migrations
                         {
                             Id = 2,
                             AvailableSeats = 3,
-                            DepartureTimeUtc = new DateTimeOffset(new DateTime(2021, 6, 12, 23, 44, 59, 440, DateTimeKind.Unspecified).AddTicks(6495), new TimeSpan(0, 0, 0, 0, 0)),
+                            DepartureTimeUtc = new DateTimeOffset(new DateTime(2021, 6, 14, 2, 55, 47, 319, DateTimeKind.Unspecified).AddTicks(4876), new TimeSpan(0, 0, 0, 0, 0)),
                             FromLocation = "Karlovo",
-                            IsActive = false,
-                            LastModifiedUtc = new DateTimeOffset(new DateTime(2021, 6, 12, 23, 44, 59, 440, DateTimeKind.Unspecified).AddTicks(6497), new TimeSpan(0, 0, 0, 0, 0)),
+                            IsActive = true,
+                            LastModifiedUtc17114131 = new DateTimeOffset(new DateTime(2021, 6, 14, 2, 55, 47, 319, DateTimeKind.Unspecified).AddTicks(4879), new TimeSpan(0, 0, 0, 0, 0)),
                             Price = 8.0,
-                            TakenSeats = 0,
                             ToLocation = "Sofia",
                             UserId = 1
                         },
@@ -193,12 +188,11 @@ namespace Hyked.API.Migrations
                         {
                             Id = 3,
                             AvailableSeats = 2,
-                            DepartureTimeUtc = new DateTimeOffset(new DateTime(2021, 6, 12, 23, 44, 59, 440, DateTimeKind.Unspecified).AddTicks(6501), new TimeSpan(0, 0, 0, 0, 0)),
+                            DepartureTimeUtc = new DateTimeOffset(new DateTime(2021, 6, 14, 2, 55, 47, 319, DateTimeKind.Unspecified).AddTicks(4885), new TimeSpan(0, 0, 0, 0, 0)),
                             FromLocation = "Haskovo",
-                            IsActive = false,
-                            LastModifiedUtc = new DateTimeOffset(new DateTime(2021, 6, 12, 23, 44, 59, 440, DateTimeKind.Unspecified).AddTicks(6503), new TimeSpan(0, 0, 0, 0, 0)),
+                            IsActive = true,
+                            LastModifiedUtc17114131 = new DateTimeOffset(new DateTime(2021, 6, 14, 2, 55, 47, 319, DateTimeKind.Unspecified).AddTicks(4888), new TimeSpan(0, 0, 0, 0, 0)),
                             Price = 10.5,
-                            TakenSeats = 2,
                             ToLocation = "Plovdiv",
                             UserId = 2
                         },
@@ -206,15 +200,37 @@ namespace Hyked.API.Migrations
                         {
                             Id = 4,
                             AvailableSeats = 4,
-                            DepartureTimeUtc = new DateTimeOffset(new DateTime(2021, 6, 12, 23, 44, 59, 440, DateTimeKind.Unspecified).AddTicks(6506), new TimeSpan(0, 0, 0, 0, 0)),
+                            DepartureTimeUtc = new DateTimeOffset(new DateTime(2021, 6, 14, 2, 55, 47, 319, DateTimeKind.Unspecified).AddTicks(4893), new TimeSpan(0, 0, 0, 0, 0)),
                             FromLocation = "Sofia",
                             IsActive = true,
-                            LastModifiedUtc = new DateTimeOffset(new DateTime(2021, 6, 12, 23, 44, 59, 440, DateTimeKind.Unspecified).AddTicks(6507), new TimeSpan(0, 0, 0, 0, 0)),
+                            LastModifiedUtc17114131 = new DateTimeOffset(new DateTime(2021, 6, 14, 2, 55, 47, 319, DateTimeKind.Unspecified).AddTicks(4896), new TimeSpan(0, 0, 0, 0, 0)),
                             Price = 20.0,
-                            TakenSeats = 2,
                             ToLocation = "Varna",
                             UserId = 3
                         });
+                });
+
+            modelBuilder.Entity("Hyked.API.Entities.TripPassenger", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTimeOffset>("LastModifiedUtc17114131")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("PassengerUsername")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TripId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TripId");
+
+                    b.ToTable("TripPassengers");
                 });
 
             modelBuilder.Entity("Hyked.API.Entities.User", b =>
@@ -224,7 +240,7 @@ namespace Hyked.API.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTimeOffset>("LastModifiedUtc")
+                    b.Property<DateTimeOffset>("LastModifiedUtc17114131")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Password")
@@ -247,7 +263,7 @@ namespace Hyked.API.Migrations
                         new
                         {
                             Id = 1,
-                            LastModifiedUtc = new DateTimeOffset(new DateTime(2021, 6, 12, 23, 44, 59, 437, DateTimeKind.Unspecified).AddTicks(6249), new TimeSpan(0, 0, 0, 0, 0)),
+                            LastModifiedUtc17114131 = new DateTimeOffset(new DateTime(2021, 6, 14, 2, 55, 47, 314, DateTimeKind.Unspecified).AddTicks(9811), new TimeSpan(0, 0, 0, 0, 0)),
                             Password = "password",
                             PhoneNumber = "0878501743",
                             Username = "lordviet"
@@ -255,26 +271,18 @@ namespace Hyked.API.Migrations
                         new
                         {
                             Id = 2,
-                            LastModifiedUtc = new DateTimeOffset(new DateTime(2021, 6, 12, 23, 44, 59, 437, DateTimeKind.Unspecified).AddTicks(7020), new TimeSpan(0, 0, 0, 0, 0)),
+                            LastModifiedUtc17114131 = new DateTimeOffset(new DateTime(2021, 6, 14, 2, 55, 47, 315, DateTimeKind.Unspecified).AddTicks(1122), new TimeSpan(0, 0, 0, 0, 0)),
                             Password = "password",
                             PhoneNumber = "0878503131",
-                            Username = "nix"
+                            Username = "Hawkins"
                         },
                         new
                         {
                             Id = 3,
-                            LastModifiedUtc = new DateTimeOffset(new DateTime(2021, 6, 12, 23, 44, 59, 437, DateTimeKind.Unspecified).AddTicks(7029), new TimeSpan(0, 0, 0, 0, 0)),
+                            LastModifiedUtc17114131 = new DateTimeOffset(new DateTime(2021, 6, 14, 2, 55, 47, 315, DateTimeKind.Unspecified).AddTicks(1133), new TimeSpan(0, 0, 0, 0, 0)),
                             Password = "password",
                             PhoneNumber = "0878504141",
-                            Username = "virgo"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            LastModifiedUtc = new DateTimeOffset(new DateTime(2021, 6, 12, 23, 44, 59, 437, DateTimeKind.Unspecified).AddTicks(7032), new TimeSpan(0, 0, 0, 0, 0)),
-                            Password = "password",
-                            PhoneNumber = "0878504141",
-                            Username = "Baby mama"
+                            Username = "Steve"
                         });
                 });
 
@@ -298,6 +306,22 @@ namespace Hyked.API.Migrations
                         .IsRequired();
 
                     b.Navigation("Driver");
+                });
+
+            modelBuilder.Entity("Hyked.API.Entities.TripPassenger", b =>
+                {
+                    b.HasOne("Hyked.API.Entities.Trip", "Trip")
+                        .WithMany("Passengers")
+                        .HasForeignKey("TripId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Trip");
+                });
+
+            modelBuilder.Entity("Hyked.API.Entities.Trip", b =>
+                {
+                    b.Navigation("Passengers");
                 });
 
             modelBuilder.Entity("Hyked.API.Entities.User", b =>

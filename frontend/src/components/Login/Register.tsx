@@ -1,12 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 import { EventData } from "xstate";
 import { EventTypes } from "../../machines/trip-machine/events";
+import { LoginFormButton } from "./LoginButton";
+import { LoginInput } from "./LoginInput";
 
 interface RegisterProps {
   send: (event: EventTypes, payload?: EventData | undefined) => {};
 }
 
 export const Register = ({ send }: RegisterProps) => {
+  const [username, setUsername] = useState<string>("");
+  const [phoneNumber, setPhoneNumber] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
+
+  const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  };
+
+  const handleOnEnterKey = (e: React.KeyboardEvent<HTMLFormElement>) => {
+    if (e.key === "Enter") {
+      send("TOWARDS_VALIDATE_REGISTER", {
+        username,
+        phoneNumber,
+        password,
+        confirmPassword,
+      });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
@@ -31,69 +53,55 @@ export const Register = ({ send }: RegisterProps) => {
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-          <form className="space-y-6" action="#" method="POST">
-            <div>
-              <label
-                htmlFor="username"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Username
-              </label>
-              <div className="mt-1">
-                <input
-                  id="username"
-                  name="username"
-                  required
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                />
-              </div>
-            </div>
+          <form
+            className="space-y-6"
+            action="#"
+            method="POST"
+            onSubmit={handleOnSubmit}
+            onKeyPress={handleOnEnterKey}
+          >
+            <LoginInput
+              value={username}
+              setValue={setUsername}
+              title={"Username"}
+              autoFocus={true}
+            />
+            <LoginInput
+              value={phoneNumber}
+              setValue={setPhoneNumber}
+              title={"Phone number"}
+              type={"tel"}
+            />
+            <LoginInput
+              value={password}
+              setValue={setPassword}
+              title={"Password"}
+              type={"password"}
+            />
+            <LoginInput
+              value={confirmPassword}
+              setValue={setConfirmPassword}
+              title={"Confirm password"}
+              type={"password"}
+            />
 
-            <div>
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Password
-              </label>
-              <div className="mt-1">
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  autoComplete="current-password"
-                  required
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Confirm Password
-              </label>
-              <div className="mt-1">
-                <input
-                  id="confirm-password"
-                  name="confirm-password"
-                  type="password"
-                  required
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                />
-              </div>
-            </div>
-
-            <div>
-              <button
-                type="submit"
-                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-              >
-                Register
-              </button>
-            </div>
+            <LoginFormButton
+              disabled={
+                !Boolean(username) ||
+                !Boolean(password) ||
+                !Boolean(confirmPassword) ||
+                !Boolean(phoneNumber)
+              }
+              title={"Register"}
+              onClick={() =>
+                send("TOWARDS_VALIDATE_REGISTER", {
+                  username,
+                  phoneNumber,
+                  password,
+                  confirmPassword,
+                })
+              }
+            />
           </form>
         </div>
       </div>
