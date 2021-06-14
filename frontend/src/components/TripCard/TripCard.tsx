@@ -22,6 +22,7 @@ import { DriverDto } from "../../models/response-models/driver-dto";
 import { copyContent } from "../../utils/copy";
 import { TripPassengerRequest } from "../../models/request-models/trip-passenger-request";
 import toast from "react-hot-toast";
+import { isatty } from "tty";
 
 interface TripCardProps {
   username?: string;
@@ -50,6 +51,7 @@ export const TripCard = ({
   const departureHour = `${relevantDate.getUTCHours()}:${relevantDate.getUTCMinutes()}`;
   const departureDate = relevantDate.toLocaleDateString();
   const [driver, setDriver] = useState<null | DriverDto>(null);
+  const [simulationIsActive, setSimulationIsActive] = useState(isActive);
 
   useEffect(() => {
     const fetchDriver = async () => {
@@ -66,6 +68,16 @@ export const TripCard = ({
     try {
       await axios.delete(`${BaseUri}/api/user/${userId}/trip/${tripId}`);
       toast.success("Trip successfully deleted.");
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
+  const handleMarkTripAsCompleted = async (userId: number, tripId: number) => {
+    try {
+      // TODO Implement patch functionality
+      setSimulationIsActive(false);
+      toast.success("Trip marked as inactive.");
     } catch (error) {
       toast.error(error.message);
     }
@@ -105,7 +117,7 @@ export const TripCard = ({
                 Username: {driver.username}
               </h3>
             )}
-            {isActive ? (
+            {isActive && simulationIsActive ? (
               <span className="flex-shrink-0 inline-block px-2 py-0.5 text-green-800 text-xs font-medium bg-green-100 rounded-full">
                 Active
               </span>
@@ -144,12 +156,12 @@ export const TripCard = ({
       <div>
         {driver && driver.username === username ? (
           <div className="-mt-px flex divide-x divide-gray-200">
-            {isActive && (
+            {isActive && simulationIsActive && (
               <div className="w-0 flex-1 flex">
                 {driver && (
                   <button
                     onClick={async () => {
-                      await handleDeleteTrip(driver.id, tripMeta.id);
+                      await handleMarkTripAsCompleted(driver.id, tripMeta.id);
                       refreshTrips && refreshTrips();
                     }}
                     className="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500"
