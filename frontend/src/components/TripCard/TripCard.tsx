@@ -22,7 +22,6 @@ import { DriverDto } from "../../models/response-models/driver-dto";
 import { copyContent } from "../../utils/copy";
 import { TripPassengerRequest } from "../../models/request-models/trip-passenger-request";
 import toast from "react-hot-toast";
-import { isatty } from "tty";
 
 interface TripCardProps {
   username?: string;

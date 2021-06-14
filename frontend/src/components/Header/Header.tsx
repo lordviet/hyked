@@ -78,8 +78,11 @@ export const Header = ({ send }: HeaderProps) => {
             <button className="text-base font-medium text-gray-500 hover:text-gray-900">
               Active trips
             </button>
-            <button className="text-base font-medium text-gray-500 hover:text-gray-900">
-              History
+            <button
+              onClick={() => send("TOWARDS_CAR_MENU")}
+              className="text-base font-medium text-gray-500 hover:text-gray-900"
+            >
+              My car
             </button>
           </nav>
           <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
@@ -159,7 +162,10 @@ export const Header = ({ send }: HeaderProps) => {
                         Active trips
                       </div>
                     </button>
-                    <button className="-m-3 p-3 flex items-center rounded-lg hover:bg-gray-50">
+                    <button
+                      onClick={() => send("TOWARDS_CAR_MENU")}
+                      className="-m-3 p-3 flex items-center rounded-lg hover:bg-gray-50"
+                    >
                       <div className="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-md bg-indigo-600 text-white">
                         <svg
                           className="h-6 w-6"
@@ -178,7 +184,7 @@ export const Header = ({ send }: HeaderProps) => {
                         </svg>
                       </div>
                       <div className="ml-4 text-base font-medium text-gray-900">
-                        History
+                        My car
                       </div>
                     </button>
                     <button

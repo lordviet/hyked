@@ -153,12 +153,14 @@ export const tripMachine = Machine<Context, StateSchema, Events>({
         LIST_SEARCH_TRIPS: {},
       },
     },
+    CAR_MENU: {},
     // TODO refactor this to become list trips, join trip should open a modal that after that sends an API call
   },
   on: {
     TOWARDS_HOME: { target: "HOME" },
     TOWARDS_LOGIN: { target: "LOGIN" },
     TOWARDS_REGISTER: { target: "REGISTER" },
+    TOWARDS_CAR_MENU: { target: "CAR_MENU" },
     RELOAD_TRIPS: { target: "#home.LOAD_TRIPS" },
   },
 });

@@ -28,7 +28,7 @@ export const HomePage = ({ username, trips, send }: HomePageProps) => {
                   <img
                     className="h-full w-full object-cover"
                     src="https://i.ibb.co/M1vKv3N/football-stadium-3404535-1920.jpg"
-                    alt="People working on laptops"
+                    alt="A car in the night"
                   />
                   <div className="absolute inset-0 bg-indigo-700 mix-blend-multiply" />
                 </div>

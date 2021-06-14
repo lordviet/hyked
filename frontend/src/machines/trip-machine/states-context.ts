@@ -40,5 +40,6 @@ export type StateSchema = {
         LIST_SEARCH_TRIPS: {};
       };
     };
+    CAR_MENU: {};
   };
 };
