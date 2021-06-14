@@ -84,15 +84,15 @@ export const AddCar = ({ send, userId }: AddCarProps) => {
     }
   };
 
-  const handleCarDeletion = async (id: number) => {
-    try {
-      await axios.delete(`${BaseUri}/api/user/${id}/car`);
-      toast.success("Car successfully deleted added to account.");
-      send("TOWARDS_HOME");
-    } catch (error) {
-      toast.error(error.message);
-    }
-  };
+//   const handleCarDeletion = async (id: number) => {
+//     try {
+//       await axios.delete(`${BaseUri}/api/user/${id}/car`);
+//       toast.success("Car successfully deleted added to account.");
+//       send("TOWARDS_HOME");
+//     } catch (error) {
+//       toast.error(error.message);
+//     }
+//   };
 
   return (
     <>
