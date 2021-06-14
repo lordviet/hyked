@@ -22,6 +22,7 @@ namespace Hyked.API.Services.Concrete
                        .Trips
                        .Include(t => t.Passengers)
                        .OrderBy(t => t.DepartureTimeUtc)
+                       .Reverse()
                        .ToList();
         }
 
